@@ -1,0 +1,13 @@
+{
+  "$schema": "https://claude.ai/schema/marketplace.json",
+  "name": "victorhahn-skills",
+  "description": "Victor Hahn's personal Claude Code skills and plugins",
+  "owner": {
+    "name": "Victor Hahn",
+    "email": "elementone@gmail.com"
+  },
+  "metadata": {
+    "pluginRoot": "./plugins"
+  },
+  "plugins": []
+}
