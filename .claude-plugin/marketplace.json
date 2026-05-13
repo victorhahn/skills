@@ -9,5 +9,11 @@
   "metadata": {
     "pluginRoot": "./plugins"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "gh-org-context",
+      "path": "./plugins/gh-org-context",
+      "description": "Distill a GitHub org (or curated repo list) into dense, structured context for downstream skills — tech stack, domains, runbooks, and cross-repo connections."
+    }
+  ]
 }
