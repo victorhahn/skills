@@ -1,0 +1,14 @@
+{
+  "name": "aws-solutions-architect",
+  "description": "Expert AWS solutions architect with deep knowledge of AWS services, architecture patterns,",
+  "author": {
+    "name": "vhahn"
+  },
+  "version": "0.1.0",
+  "skills": [
+    {
+      "name": "aws-solutions-architect",
+      "path": "./skills/aws-solutions-architect"
+    }
+  ]
+}

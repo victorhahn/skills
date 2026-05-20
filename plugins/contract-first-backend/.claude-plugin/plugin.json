@@ -1,0 +1,14 @@
+{
+  "name": "contract-first-backend",
+  "description": "Bootstrap and work with contract-first TypeScript/Express backends where openapi.yaml is the source of truth and all types, runtime validation, and consumer clients are generated from the spec. Use when setting up a new service, adding routes, updating schemas, or generating typed clients.",
+  "author": {
+    "name": "vhahn"
+  },
+  "version": "0.1.0",
+  "skills": [
+    {
+      "name": "contract-first-backend",
+      "path": "./skills/contract-first-backend"
+    }
+  ]
+}

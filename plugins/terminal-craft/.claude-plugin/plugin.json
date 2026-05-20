@@ -1,0 +1,23 @@
+{
+  "name": "terminal-craft",
+  "description": "Build production-grade terminal tools \u2014 agent-friendly Node/TypeScript CLIs with composable JSON command surfaces, and polished interactive Ink TUIs grounded in real-world precedent from 18 reference applications. Bundles three coordinated skills covering the agent CLI side (cli-creator), universal TUI design principles + Ink 7 implementation (tui-design), and the pattern catalog distilled from lazygit / k9s / claude-code / harlequin / btop / yazi / helix / and others (tui-patterns).",
+  "author": {
+    "name": "vhahn"
+  },
+  "version": "0.1.0",
+  "homepage": "https://github.com/vhahn/terminal-craft",
+  "skills": [
+    {
+      "name": "cli-creator",
+      "path": "./skills/cli-creator"
+    },
+    {
+      "name": "tui-design",
+      "path": "./skills/tui-design"
+    },
+    {
+      "name": "tui-patterns",
+      "path": "./skills/tui-patterns"
+    }
+  ]
+}

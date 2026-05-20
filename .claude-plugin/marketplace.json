@@ -1,10 +1,10 @@
 {
   "$schema": "https://claude.ai/schema/marketplace.json",
   "name": "victorhahn-skills",
-  "description": "Victor Hahn's personal Claude Code skills and plugins",
+  "description": "My random skills",
   "owner": {
     "name": "Victor Hahn",
-    "email": "elementone@gmail.com"
+    "email": "vhahnwebdev@gmail.com"
   },
   "metadata": {
     "pluginRoot": "./plugins"
@@ -13,7 +13,47 @@
     {
       "name": "gh-org-context",
       "path": "./plugins/gh-org-context",
-      "description": "Distill a GitHub org (or curated repo list) into dense, structured context for downstream skills — tech stack, domains, runbooks, and cross-repo connections."
+      "description": "Distill a GitHub org (or curated repo list) into dense, structured context for downstream skills \u2014 tech stack, domains, runbooks, and cross-repo connections."
+    },
+    {
+      "name": "terminal-craft",
+      "path": "./plugins/terminal-craft",
+      "description": "Build production-grade terminal tools \u2014 agent-friendly Node/TypeScript CLIs with composable JSON command surfaces, and polished interactive Ink TUIs grounded in real-world precedent from 18 reference applications. Bundles three coordinated skills covering the agent CLI side (cli-creator), universal TUI design principles + Ink 7 implementation (tui-design), and the pattern catalog distilled from lazygit / k9s / claude-code / harlequin / btop / yazi / helix / and others (tui-patterns)."
+    },
+    {
+      "name": "aws-solutions-architect",
+      "path": "./plugins/aws-solutions-architect",
+      "description": "Expert AWS solutions architect with deep knowledge of AWS services, architecture patterns,"
+    },
+    {
+      "name": "kubernetes-specialist",
+      "path": "./plugins/kubernetes-specialist",
+      "description": "Use when deploying or managing Kubernetes workloads. Invoke to create deployment manifests, configure pod security policies, set up service accounts, define network isolation rules, debug pod crashes, analyze resource limits, inspect container logs, or right-size workloads. Use for Helm charts, RBAC policies, NetworkPolicies, storage configuration, performance optimization, GitOps pipelines, and multi-cluster management."
+    },
+    {
+      "name": "typescript-expert",
+      "path": "./plugins/typescript-expert",
+      "description": "TypeScript and JavaScript expert with deep knowledge of type-level programming, performance optimization, monorepo management, migration strategies, and modern tooling."
+    },
+    {
+      "name": "contract-first-backend",
+      "path": "./plugins/contract-first-backend",
+      "description": "Bootstrap and work with contract-first TypeScript/Express backends where openapi.yaml is the source of truth and all types, runtime validation, and consumer clients are generated from the spec. Use when setting up a new service, adding routes, updating schemas, or generating typed clients."
+    },
+    {
+      "name": "codebase-improvement-audit",
+      "path": "./plugins/codebase-improvement-audit",
+      "description": "Audit a codebase for *real* improvement opportunities \u2014 security gaps,"
+    },
+    {
+      "name": "test-coverage-quality-audit",
+      "path": "./plugins/test-coverage-quality-audit",
+      "description": "Audit a codebase for test coverage *quality* \u2014 not just line %. Detects tautological assertions, business logic leaks into controllers, snapshot abuse, fake-timer/store leaks, over-mocking of internals, missing tests, and framework-specific anti-patterns in JS/TS (Jest, Vitest, Testing Library, MSW, Playwright) and Go. Use whenever the user says \"audit our tests\", \"check test quality\", \"are our tests meaningful\", \"find coverage gaps\", \"test smell review\", \"review the tests for this feature\", \"are these tests any good\", \"what's wrong with our test suite\", or pastes a repo path / PR diff and asks about testing rigor. Produces a severity-tagged diagnostic report with file:line citations \u2014 does not run tests or modify code. Strongly prefer this skill over generic code review for any question that touches test integrity, assertion strength, mock strategy, or coverage adequacy."
+    },
+    {
+      "name": "visualize",
+      "path": "./plugins/visualize",
+      "description": "Invoke when the answer should be a diagram, not prose. Three triggers \u2014 (1) explicit request: \"visualize\", \"diagram this\", \"draw the flow\", \"show me the relationships\", \"I can't picture it\", \"help me see the difference\"; (2) sharing intent: user wants something to send to a teammate, drop in Slack, put on a wiki, or present to a PM or stakeholder; (3) structural complexity: user describes a multi-entity permission model, event-driven pipeline, deployment sequence, auth flow, or architectural tradeoff and needs to understand or communicate how pieces connect. This is the only skill that produces rendered Mermaid diagrams and self-contained HTML visuals. Skip for direct code writing, SQL queries, factual lookups, and debugging investigations."
     }
   ]
 }

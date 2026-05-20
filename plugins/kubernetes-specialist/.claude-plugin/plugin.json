@@ -1,0 +1,14 @@
+{
+  "name": "kubernetes-specialist",
+  "description": "Use when deploying or managing Kubernetes workloads. Invoke to create deployment manifests, configure pod security policies, set up service accounts, define network isolation rules, debug pod crashes, analyze resource limits, inspect container logs, or right-size workloads. Use for Helm charts, RBAC policies, NetworkPolicies, storage configuration, performance optimization, GitOps pipelines, and multi-cluster management.",
+  "author": {
+    "name": "vhahn"
+  },
+  "version": "0.1.0",
+  "skills": [
+    {
+      "name": "kubernetes-specialist",
+      "path": "./skills/kubernetes-specialist"
+    }
+  ]
+}

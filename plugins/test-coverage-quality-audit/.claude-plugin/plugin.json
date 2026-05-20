@@ -1,0 +1,14 @@
+{
+  "name": "test-coverage-quality-audit",
+  "description": "Audit a codebase for test coverage *quality* \u2014 not just line %. Detects tautological assertions, business logic leaks into controllers, snapshot abuse, fake-timer/store leaks, over-mocking of internals, missing tests, and framework-specific anti-patterns in JS/TS (Jest, Vitest, Testing Library, MSW, Playwright) and Go. Use whenever the user says \"audit our tests\", \"check test quality\", \"are our tests meaningful\", \"find coverage gaps\", \"test smell review\", \"review the tests for this feature\", \"are these tests any good\", \"what's wrong with our test suite\", or pastes a repo path / PR diff and asks about testing rigor. Produces a severity-tagged diagnostic report with file:line citations \u2014 does not run tests or modify code. Strongly prefer this skill over generic code review for any question that touches test integrity, assertion strength, mock strategy, or coverage adequacy.",
+  "author": {
+    "name": "vhahn"
+  },
+  "version": "0.1.0",
+  "skills": [
+    {
+      "name": "test-coverage-quality-audit",
+      "path": "./skills/test-coverage-quality-audit"
+    }
+  ]
+}
