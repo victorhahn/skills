@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 This repo is a personal skills marketplace. It must stay compatible with two formats simultaneously: **skills.sh** (public CLI registry) and **Claude Code plugins** (`.claude-plugin/` schema).
 
@@ -12,6 +12,16 @@ This repo is a personal skills marketplace. It must stay compatible with two for
 When you add, rename, or remove a skill, update **both** files.
 
 ## Adding a skill
+
+**In agentic sessions, always use the scaffold script instead of creating files by hand — it patches both registries atomically:**
+
+```bash
+./scripts/new-skill.sh <plugin-name> <skill-name>
+```
+
+Then fill in the `description` and body in the generated `SKILL.md`.
+
+If you're creating a skill manually (e.g. for a new plugin that doesn't exist yet), follow these steps:
 
 1. Create `plugins/<plugin>/skills/<skill-name>/SKILL.md` with frontmatter:
    ```
