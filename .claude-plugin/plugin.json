@@ -1,0 +1,6 @@
+{
+  "name": "victorhahn-skills",
+  "skills": [
+    "./plugins/gh-org-context/skills/org-context"
+  ]
+}
