@@ -1,6 +1,6 @@
 ---
 name: org-context
-description: Builds and queries a structured knowledge base for a GitHub org or repo bundle — tech stack, domains, runbooks, cross-repo connections, team ownership, release process, test commands, and approvers. Use this skill whenever a user asks how to understand, navigate, or work within a large multi-repo codebase; when they're confused about which repos matter or how services connect; when they need to know who owns something or how to run/test/release a service; when any other skill needs org or repo context to do its job (it should trigger this skill to load the knowledge base rather than re-deriving from scratch). This is the "onboarded engineer" context layer — build it once, use it everywhere.
+description: Builds and queries a structured knowledge base for a GitHub org or repo bundle — tech stack, domains, runbooks, cross-repo connections, team ownership, release process, test commands, and approvers. Use this skill whenever a user asks how to understand, navigate, or work within a large multi-repo codebase; when they're confused about which repos matter or how services connect; when they need to know who owns something or how to run/test/release a service; when any other skill needs org or repo context to do its job (it should trigger this skill to load the knowledge base rather than re-deriving from scratch)
 allowed-tools: Bash, Read, Write, Edit
 ---
 
@@ -85,7 +85,3 @@ test -f "$PLUGIN_ROOT/context/orgs/<org>/ORG.md" || echo "Run /org-scan <org> fi
 - `gh` CLI installed and authenticated (`gh auth login`)
 - Token scopes: `read:org`, `repo`
 - Python 3.9+ (venv bootstrapped automatically on first run via slash commands)
-
-## Phase 2 (not yet implemented)
-
-Confluence, Jira, Notion, Slack channel topics. The `scope`, `schema_version`, and `org` frontmatter fields are sized to survive this addition.
