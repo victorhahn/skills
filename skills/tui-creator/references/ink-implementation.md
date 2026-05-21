@@ -72,13 +72,13 @@ export async function runTui() {
 }
 ```
 
-`runTui` is loaded lazily from the CLI entry (see `cli-creator/references/node-defaults.md` §"When the CLI Also Needs a TUI") so the agent/JSON path never pays the React boot cost.
+`runTui` is loaded lazily from the CLI entry (see the `cli-creator` skill's `node-defaults.md` §"When the CLI Also Needs a TUI") so the agent/JSON path never pays the React boot cost.
 
 ---
 
 ## 3. Layout paradigms → `<Box>` recipes
 
-Ink layout is Yoga flexbox — every `<Box>` is `display: flex`. Map the seven paradigms from `tui-design` §1:
+Ink layout is Yoga flexbox — every `<Box>` is `display: flex`. Map the seven paradigms from `design-principles.md` §1 (also in the parent SKILL.md §2):
 
 ### Persistent Multi-Panel (lazygit / Studio direction)
 
@@ -171,7 +171,7 @@ For large lists, use `ink-virtual-list` rather than rendering every item — Ink
 
 ## 4. Focus and keyboard navigation
 
-Ink ships `useFocus` and `useFocusManager` — the three-layer discoverability stack from `tui-patterns` §5 maps cleanly:
+Ink ships `useFocus` and `useFocusManager` — the three-layer discoverability stack (parent SKILL.md §3, cross-cutting pattern 5) maps cleanly:
 
 ```tsx
 import { Box, Text, useFocus, useFocusManager, useInput } from "ink";
@@ -270,7 +270,7 @@ Set `flags: ['disambiguateEscapeCodes', 'reportEventTypes']` for the latter.
 
 ## 6. Color system → Ink
 
-The `tui-design` semantic slot table maps to a small theme module. Ink accepts named colors, hex, RGB, and HSL (passed through to chalk):
+The semantic slot table from `design-principles.md` §4 maps to a small theme module. Ink accepts named colors, hex, RGB, and HSL (passed through to chalk):
 
 ```tsx
 // src/ui/theme.ts
@@ -287,7 +287,7 @@ export const theme = {
     selection: "#364a82",
   },
   accent: {
-    primary: "#7aa2f7",        // the ONE accent — see tui-patterns §2
+    primary: "#7aa2f7",        // the ONE accent — see parent SKILL.md §3 (pattern 2)
   },
   status: {
     error: "#f7768e",
@@ -315,13 +315,13 @@ const colorEnabled = !process.env.NO_COLOR;
 const color = colorEnabled ? theme.accent.primary : undefined;
 ```
 
-For graceful degradation, never make state legible by color alone. Pair with bold/dim/underline/inverse (`tui-design` §4).
+For graceful degradation, never make state legible by color alone. Pair with bold/dim/underline/inverse (`design-principles.md` §4).
 
 ---
 
 ## 7. Borders — state-bearing
 
-The `tui-patterns` rule is: borders encode state or they go away. In Ink that means `borderStyle="round"` with `borderColor` driven by focus/mode state.
+The borders rule (parent SKILL.md §3, pattern 3): state-bearing or absent. In Ink that means `borderStyle="round"` with `borderColor` driven by focus/mode state.
 
 ```tsx
 function ModeBox({ mode, children }: { mode: "read" | "plan" | "write"; children: React.ReactNode }) {
@@ -359,7 +359,7 @@ A 3–5% lightness step + 1-cell `gap` reads as two panes without chrome.
 
 ## 8. Async I/O — render off the main path
 
-The single highest-leverage rule from `tui-patterns` §7. In Ink, render is React; everything else is just Node.
+The single highest-leverage rule (parent SKILL.md §3, pattern 7). In Ink, render is React; everything else is just Node.
 
 ```tsx
 function Files() {
@@ -438,13 +438,13 @@ Anti-pattern: don't drive *state* updates from `useAnimation` — only visuals. 
 
 Use `ink-spinner` for the convenience surface; use `useAnimation` directly when you want to share the timer with other components (palette fade, sparkline ticks, etc.).
 
-Throttle status-indicator updates to event-driven changes or 1 Hz max — `tui-patterns` §6. btop's own README recommends 2000ms. Don't poll on a tick.
+Throttle status-indicator updates to event-driven changes or 1 Hz max — parent SKILL.md §3, pattern 6. btop's own README recommends 2000ms. Don't poll on a tick.
 
 ---
 
 ## 10. Three-layer discoverability in Ink
 
-The footer / which-key / palette pattern from `tui-patterns` §5, implemented:
+The footer / which-key / palette pattern (parent SKILL.md §3, pattern 5), implemented:
 
 ### Single keymap as source of truth
 
@@ -551,7 +551,7 @@ All three layers draw from the same `keymap` table → they cannot disagree.
 
 ### Inline confirmation (lazygit pattern)
 
-For destructive actions, the `tui-patterns` rule is **explicit-choice labels**, not `y/n`:
+For destructive actions, the rule is **explicit-choice labels**, not `y/n` (parent SKILL.md §3, pattern 4):
 
 ```tsx
 function ConfirmDelete({ target, onConfirm, onCancel }: ConfirmProps) {
@@ -759,10 +759,10 @@ For pure layout/visual tests without a terminal, use Ink's own `renderToString(t
 
 ---
 
-## 18. Cross-skill pointers
+## 18. Related references
 
-- **Universal TUI design principles** — see `tui-design/SKILL.md` (this skill's parent). Layout selection, color tiers, animation rules, the seven design principles.
-- **Real-world precedent** — see `tui-patterns/SKILL.md`. The 18-tool catalog, the three direction archetypes (Studio/Atelier/Concourse), ranked anti-patterns.
-- **The agent CLI side** — see `cli-creator/SKILL.md`. The Node/TS + pnpm stack, JSON contract, lazy-loading the TUI from the same binary.
+- **Universal TUI design principles** — `design-principles.md` (this skill's sibling reference). Layout selection, color tiers, animation rules, the seven design principles.
+- **Real-world precedent and the 18-tool catalog** — see the parent `SKILL.md` and the three cluster files (`cluster-a-devops.md`, `cluster-b-modern.md`, `cluster-c-monitors.md`) for direction archetypes, cross-cutting patterns, and ranked anti-patterns.
+- **The agent CLI side** — see the `cli-creator` skill. The Node/TS + pnpm stack, JSON contract, lazy-loading the TUI from the same binary.
 
 Re-verify the Ink version + peer requirements via `curl -s https://registry.npmjs.org/ink | jq '."dist-tags".latest, .versions[."dist-tags".latest].peerDependencies'` before scaffolding if it has been more than a few months since this file was updated.

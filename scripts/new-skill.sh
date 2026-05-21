@@ -1,17 +1,32 @@
 #!/usr/bin/env bash
-# Usage: ./scripts/new-skill.sh <plugin-name> <skill-name>
-# Creates skill scaffolding and patches both registries.
+# Usage:
+#   ./scripts/new-skill.sh <skill-name>                  # flat skill at skills/<skill-name>
+#   ./scripts/new-skill.sh --plugin <plugin> <skill>     # nested skill under plugins/<plugin>/skills/<skill>
+# Patches the root .claude-plugin/plugin.json (and the per-plugin plugin.json when --plugin is used).
 set -euo pipefail
 
-PLUGIN=${1:?Usage: new-skill.sh <plugin-name> <skill-name>}
-SKILL=${2:?Usage: new-skill.sh <plugin-name> <skill-name>}
-
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-SKILL_DIR="$REPO_ROOT/plugins/$PLUGIN/skills/$SKILL"
-PLUGIN_JSON="$REPO_ROOT/plugins/$PLUGIN/.claude-plugin/plugin.json"
+
+PLUGIN=""
+if [[ "${1:-}" == "--plugin" ]]; then
+  PLUGIN=${2:?Usage: new-skill.sh --plugin <plugin> <skill>}
+  SKILL=${3:?Usage: new-skill.sh --plugin <plugin> <skill>}
+else
+  SKILL=${1:?Usage: new-skill.sh <skill-name>  OR  new-skill.sh --plugin <plugin> <skill>}
+fi
+
+if [[ -n "$PLUGIN" ]]; then
+  SKILL_DIR="$REPO_ROOT/plugins/$PLUGIN/skills/$SKILL"
+  SKILL_PATH="./plugins/$PLUGIN/skills/$SKILL"
+  PLUGIN_JSON="$REPO_ROOT/plugins/$PLUGIN/.claude-plugin/plugin.json"
+else
+  SKILL_DIR="$REPO_ROOT/skills/$SKILL"
+  SKILL_PATH="./skills/$SKILL"
+  PLUGIN_JSON=""
+fi
+
 ROOT_PLUGIN_JSON="$REPO_ROOT/.claude-plugin/plugin.json"
 
-# Create skill directory and stub SKILL.md
 mkdir -p "$SKILL_DIR"
 cat > "$SKILL_DIR/SKILL.md" <<EOF
 ---
@@ -27,8 +42,7 @@ EOF
 
 echo "Created $SKILL_DIR/SKILL.md"
 
-# Patch root plugin.json — insert skill path if not already present
-SKILL_PATH="./plugins/$PLUGIN/skills/$SKILL"
+# Patch root plugin.json
 if ! python3 -c "import json,sys; d=json.load(open('$ROOT_PLUGIN_JSON')); sys.exit(0 if '$SKILL_PATH' in d.get('skills',[]) else 1)" 2>/dev/null; then
   python3 - <<PYEOF
 import json
@@ -43,8 +57,8 @@ PYEOF
   echo "Patched $ROOT_PLUGIN_JSON"
 fi
 
-# Patch per-plugin plugin.json if it exists
-if [[ -f "$PLUGIN_JSON" ]]; then
+# Patch per-plugin plugin.json (only when --plugin is used)
+if [[ -n "$PLUGIN_JSON" && -f "$PLUGIN_JSON" ]]; then
   if ! python3 -c "import json,sys; d=json.load(open('$PLUGIN_JSON')); sys.exit(0 if any(s.get('name')=='$SKILL' for s in d.get('skills',[])) else 1)" 2>/dev/null; then
     python3 - <<PYEOF
 import json

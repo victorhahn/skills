@@ -11,15 +11,16 @@ description: >
   OpenAPI", "installable tool for X", "package this script as a command", or any request
   to turn a workflow into a persistent binary. This is for durable tools, not one-off
   scripts — if a short script in the current repo solves the task, write it there
-  instead. Pairs with the `tui-design` and `tui-patterns` skills when the same tool also
-  needs an interactive Ink-based TUI surface.
+  instead. If the same tool also needs a polished interactive surface (multi-panel TUI,
+  live updates, navigation beyond a single table), also invoke `tui-creator` for layout,
+  color, focus, animation, and Ink 7 / React 19 implementation recipes.
 ---
 
 # CLI Creator
 
 Build a real Node/TypeScript CLI that future Claude Code sessions can invoke by name from any working directory.
 
-This skill assumes the **Node/TypeScript + Ink** stack: agent-friendly JSON output from the same binary that can render a polished interactive TUI when invoked without `--json`. Sister skills `tui-design` and `tui-patterns` cover the interactive surface.
+This skill assumes the **Node/TypeScript + Ink** stack: agent-friendly JSON output from the same binary that can render a polished interactive TUI when invoked without `--json`. The companion `tui-creator` skill covers the interactive side.
 
 ## Step 1 — Clarify Intent
 
@@ -85,7 +86,7 @@ A well-designed CLI serves two audiences from one binary:
 - **Agent path** — `<tool> --json <verb>` returns strict JSON, exits with a code, prints nothing else. This is what Claude Code chains together across sessions.
 - **Human path** — `<tool> <verb>` without `--json` may render a rich interactive surface (table, prompts, or full Ink TUI). When the same data flows through both paths, the agent and human stay in sync.
 
-If the tool warrants a full TUI (more than a row table — multi-panel, live updates, navigation), invoke the [`tui-design`](../tui-design/SKILL.md) and [`tui-patterns`](../tui-patterns/SKILL.md) skills to design that surface. They cover layout, color, focus, animation, and real-world precedent across 18 reference TUIs.
+If the tool warrants a full TUI (more than a row table — multi-panel, live updates, navigation), invoke the `tui-creator` skill to design that surface. It covers layout, color, focus, animation, and real-world precedent across 18 reference TUIs, plus Ink 7 / React 19 implementation recipes.
 
 ## Step 4 — Auth and Config
 
@@ -156,8 +157,6 @@ description: >
 ---
 ```
 
-## Companion Skills
+## Companion Skill
 
-- [`tui-design`](../tui-design/SKILL.md) — Universal TUI design principles. Layout paradigm selector, semantic color system, focus management, animation rules, accessibility. Read when the CLI also needs a polished interactive surface.
-- [`tui-design/references/ink-implementation.md`](../tui-design/references/ink-implementation.md) — Ink 7 / React 19 component and hook recipes. The concrete how-to once you've picked your design direction.
-- [`tui-patterns`](../tui-patterns/SKILL.md) — Real-world precedent from 18 reference TUIs (lazygit, k9s, claude-code, harlequin, btop, yazi, helix, …). Three direction archetypes (Studio/Atelier/Concourse) and ranked anti-patterns. Read before committing to a TUI direction.
+- **`tui-creator`** — The interactive side. Layout paradigm selector, three direction archetypes (Studio / Atelier / Concourse), cross-cutting patterns, ranked anti-patterns, semantic color system, focus management, animation rules, accessibility — plus Ink 7 / React 19 implementation recipes. Invoke alongside this skill when the same binary also exposes an interactive surface.

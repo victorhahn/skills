@@ -1,16 +1,15 @@
 {
   "name": "victorhahn-skills",
   "skills": [
-    "./plugins/gh-org-context/skills/org-context",
-    "./plugins/terminal-craft/skills/cli-creator",
-    "./plugins/terminal-craft/skills/tui-design",
-    "./plugins/terminal-craft/skills/tui-patterns",
-    "./plugins/aws-solutions-architect/skills/aws-solutions-architect",
-    "./plugins/kubernetes-specialist/skills/kubernetes-specialist",
-    "./plugins/typescript-expert/skills/typescript-expert",
-    "./plugins/contract-first-backend/skills/contract-first-backend",
-    "./plugins/codebase-improvement-audit/skills/codebase-improvement-audit",
-    "./plugins/test-coverage-quality-audit/skills/test-coverage-quality-audit",
-    "./plugins/visualize/skills/visualize"
+    "./skills/aws-solutions-architect",
+    "./skills/cli-creator",
+    "./skills/codebase-improvement-audit",
+    "./skills/contract-first-backend",
+    "./skills/kubernetes-specialist",
+    "./skills/test-coverage-quality-audit",
+    "./skills/tui-creator",
+    "./skills/typescript-expert",
+    "./skills/visualize",
+    "./plugins/gh-org-context/skills/org-context"
   ]
 }

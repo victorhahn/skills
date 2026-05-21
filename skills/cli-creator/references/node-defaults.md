@@ -325,4 +325,4 @@ pnpm add -D @types/react ink-testing-library@^4
 
 Always **verify the current `latest` tag before scaffolding**. Ink moves through majors fairly often — check `https://registry.npmjs.org/ink` for `dist-tags.latest` rather than relying on this doc for the exact version. The shape of the API stays similar across majors but peer requirements (React, Node) drift.
 
-Design the TUI surface using the `tui-design` and `tui-patterns` skills — they cover layout, focus, color, animation, and real-world precedent. See `tui-design/references/ink-implementation.md` for the Ink 7 / React 19 component recipes.
+Design the TUI surface using the `tui-creator` skill — it covers layout, focus, color, animation, real-world precedent across 18 reference TUIs, and Ink 7 / React 19 implementation recipes.

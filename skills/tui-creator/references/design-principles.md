@@ -1,13 +1,8 @@
----
-name: tui-design
-description: This skill should be used when designing terminal user interfaces, creating TUI layouts, choosing TUI color schemes, implementing keyboard navigation, building terminal dashboards, or working with any TUI framework. Activates on mentions of TUI design, terminal UI, Ratatui layout, Ink components, Textual widgets, Bubbletea views, terminal color palette, keybinding design, panel layout, split panes, terminal dashboard, box-drawing characters, sparklines, progress bars, modal dialogs, focus management, or terminal accessibility.
----
+# Design Principles — Reference
 
-# TUI Design System
+The full universal design system: layout paradigms with ASCII sketches, responsive resize handling, four-layer keybinding design, color tiers (16 ANSI / 256 / true color), semantic color slots, data viz widgets, animation rules, the seven principles, accessibility checklist.
 
-Universal design patterns for building exceptional terminal user interfaces. Framework-agnostic, works with Ratatui, Ink, Textual, Bubbletea, or any TUI toolkit.
-
-**Core philosophy:** TUIs earn their power through spatial consistency, keyboard fluency, and information density that respects human attention. Design for the expert's speed without abandoning the beginner's discoverability.
+Framework-agnostic — works with Ratatui, Ink, Textual, Bubbletea, or any TUI toolkit. For the synthesis layer (direction archetypes, the seven cross-cutting patterns, ranked anti-patterns, the 18-tool catalog), see the parent `SKILL.md`. For Ink 7 / React 19 implementation specifics, see [`ink-implementation.md`](ink-implementation.md).
 
 ## TUI Design Process
 
@@ -441,18 +436,9 @@ Before shipping, verify:
 
 ---
 
-For Unicode character reference tables and border style gallery, see [visual-catalog.md](references/visual-catalog.md).
-For real-world TUI app design analysis and inspiration, see [app-patterns.md](references/app-patterns.md).
-For Ink 7 / React 19 implementation recipes — components, hooks, focus, animation, accessibility, the flicker fix — see [ink-implementation.md](references/ink-implementation.md).
+## Related references
 
-## Companion Skills
-
-- [`tui-patterns`](../tui-patterns/SKILL.md) — Real-world precedent from 18 reference TUIs (lazygit, k9s, claude-code, harlequin, btop, yazi, helix, …). Three direction archetypes (Studio / Atelier / Concourse). Ranked anti-patterns. **Read this before committing to a layout/color/keybinding direction.**
-- [`cli-creator`](../cli-creator/SKILL.md) — The agent-CLI side of the same tool. Composable command surface, JSON contract, Node/TS/pnpm stack, lazy-loaded Ink from the same binary.
-
-## What This Skill is NOT
-
-- Not a framework-specific API reference — for Ink specifics, see `references/ink-implementation.md`.
-- Not an excuse to over-decorate terminal tools.
-- Not a replacement for testing in real terminal emulators.
-- Not framework-locked; the patterns apply across Ink, Ratatui, Textual, Bubbletea, gocui.
+- Unicode character reference tables and border style gallery — [`visual-catalog.md`](visual-catalog.md).
+- Real-world TUI app design analysis and inspiration — [`app-patterns.md`](app-patterns.md).
+- Ink 7 / React 19 implementation recipes (components, hooks, focus, animation, accessibility, the flicker fix) — [`ink-implementation.md`](ink-implementation.md).
+- Real-world precedent and the 18-tool catalog — see the parent `SKILL.md` and the three cluster files (`cluster-a-devops.md`, `cluster-b-modern.md`, `cluster-c-monitors.md`).
