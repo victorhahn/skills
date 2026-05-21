@@ -10,6 +10,9 @@
     "./skills/tui-creator",
     "./skills/typescript-expert",
     "./skills/visualize",
-    "./plugins/gh-org-context/skills/org-context"
+    "./plugins/gh-org-context/skills/org-context",
+    "./skills/brainstorming",
+    "./skills/subagent-architect",
+    "./skills/repo-synthesize"
   ]
 }
