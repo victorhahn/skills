@@ -1,24 +1,15 @@
 ---
 name: visualize
 description: >
-  Build a single-file, self-contained interactive HTML artifact when the
-  answer wants to be a page you can scroll, click, and share — not more
-  prose. Triggers — (1) explicit: "visualize", "make an HTML", "build me
-  a page / one-pager for this", "diagram this", "draw the flow", "I can't
-  picture it"; (2) comparison: "show me N approaches side-by-side", "lay
-  them out so I can compare them", "give me options to scan"; (3)
-  planning / spec / review: "turn this plan into something I can read",
-  "review this PR as an HTML", "rendered diff with margin annotations",
-  "show me the architecture"; (4) interactive exploration: "let me play
-  with X", "build me a quick editor", "make me a dashboard", "draggable
-  cards / kanban", "knobs to tune Y"; (5) sharing intent: user wants
-  something to send to a teammate, drop in a chat, put on a wiki, or
-  show a stakeholder. The artifact is scaffolding for the conversation —
-  build it freely, low commitment to keep it. Mermaid, SVG, and charts
-  are primitives inside the page. Every artifact with editable state ends
-  with a "Copy state as JSON" button so the work flows back into chat.
-  Skip for one-line answers, single commands, factual lookups, and live
-  debugging where the user needs a next move, not a page.
+  Build a single-file, self-contained interactive HTML artifact and open
+  it in the browser. Invoke via /visualize, "visualize this", "generate a
+  visual artifact", or "make this into a page". Output shapes: comparison
+  grids, architecture diagrams, scrollable plan/spec pages, PR diffs with
+  annotations, decision matrices, draggable kanbans, dashboards, tunable
+  knobs pages. Template at assets/template.html provides card/grid
+  primitives, CSS variables, and a sticky export bar with Print/PDF and
+  Copy State as JSON. Skip for text explanations, single mermaid blocks,
+  debug next-steps, or answers that fit in a few sentences.
 ---
 
 # Visualize
