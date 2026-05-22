@@ -1,5 +1,7 @@
 # skills
 
+[![skills.sh](https://skills.sh/b/victorhahn/skills)](https://skills.sh/victorhahn/skills)
+
 A personal collection of Claude Code skills and plugins, dual-published as a **Claude Code marketplace**, a **Cursor team marketplace**, and a **`skills` CLI** registry. Install the whole bundle or pick individual skills.
 
 ## Install (Claude Code — recommended)
