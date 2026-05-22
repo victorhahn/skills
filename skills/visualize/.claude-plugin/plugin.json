@@ -1,11 +1,11 @@
 {
   "name": "visualize",
-  "description": "Produce rendered Mermaid diagrams and self-contained HTML visuals when the answer should be a diagram, not prose.",
-  "version": "1.0.0",
+  "description": "Build single-file, low-commitment interactive HTML as scaffolding for the conversation — comparison grids, plans, dashboards, draggable kanbans, decision matrices, annotated architectures — when the answer wants to be a page you can scroll, click, and share. Mermaid, SVG, and charts are primitives inside. Every editable artifact ends with a 'Copy state as JSON' button so the work flows back into chat.",
+  "version": "2.0.0",
   "author": {
     "name": "Victor Hahn",
     "email": "vhahnwebdev@gmail.com"
   },
   "category": "workflow",
-  "keywords": ["diagrams", "mermaid", "visualization", "architecture"]
+  "keywords": ["html", "artifacts", "visualization", "diagrams", "dashboards", "comparison", "architecture", "mermaid"]
 }

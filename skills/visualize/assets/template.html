@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artifact</title>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --ink: #1c1c1c;
+    --muted: #6b6b6b;
+    --line: #e6e6e3;
+    --accent: #2b5fff;
+    --good: #1f8a4c;
+    --warn: #b8860b;
+    --bad: #c0392b;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+    --maxw: 1180px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    padding: 32px 24px 96px;
+  }
+  main { max-width: var(--maxw); margin: 0 auto; }
+  header.artifact-header {
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  h1 { font-size: 24px; margin: 0 0 6px; letter-spacing: -.01em; }
+  header.artifact-header .subtitle { color: var(--muted); font-size: 14px; }
+  h2 { font-size: 18px; margin: 32px 0 12px; letter-spacing: -.005em; }
+  h3 { font-size: 15px; margin: 18px 0 6px; }
+  p { margin: 8px 0; }
+  code, pre { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; }
+  pre {
+    background: #1c1c1c; color: #f3f3f3; padding: 14px 16px;
+    border-radius: var(--radius); overflow-x: auto;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+  }
+  .grid { display: grid; gap: 16px; }
+  .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 880px) {
+    .grid-3, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+
+  .pill {
+    display: inline-block; padding: 2px 8px; border-radius: 999px;
+    font-size: 12px; font-weight: 500; background: #eef0f3; color: var(--muted);
+  }
+  .pill.good { background: #e8f5ee; color: var(--good); }
+  .pill.warn { background: #fbf3df; color: var(--warn); }
+  .pill.bad  { background: #fbe7e4; color: var(--bad); }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 600; color: var(--muted); font-size: 13px; }
+
+  details > summary { cursor: pointer; font-weight: 500; }
+
+  .export-bar {
+    position: sticky; bottom: 0; left: 0; right: 0;
+    margin: 48px auto 0; max-width: var(--maxw);
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 12px 16px;
+    display: flex; gap: 8px; align-items: center; justify-content: flex-end;
+    box-shadow: var(--shadow);
+  }
+  .export-bar .hint { color: var(--muted); font-size: 13px; margin-right: auto; }
+  .btn {
+    appearance: none; border: 1px solid var(--line); background: var(--surface);
+    color: var(--ink); padding: 8px 14px; border-radius: 8px; font: inherit;
+    cursor: pointer;
+  }
+  .btn:hover { border-color: #c9c9c4; }
+  .btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .btn.primary:hover { background: #000; }
+
+  @media print {
+    body { padding: 0; background: #fff; }
+    .export-bar { display: none; }
+    .card { box-shadow: none; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="artifact-header">
+    <h1>Replace this title</h1>
+    <div class="subtitle">One-line framing of what this artifact is for.</div>
+  </header>
+
+  <!-- Content slot. Drop in whatever shape the conversation needs:
+       grid-of-N comparison, plan sections, decision matrix, kanban, etc.
+       Keep the .card / .grid / .pill primitives consistent across artifacts. -->
+  <section>
+    <p>Replace this with the actual content.</p>
+  </section>
+</main>
+
+<!-- Export hatch. Required for any artifact where the user edits state
+     (kanbans, matrices, prompt editors, config tuners). Read state from
+     window.__artifactState (set it from your interactive code) and copy
+     it to the clipboard as JSON the user can paste back into chat. -->
+<div class="export-bar">
+  <span class="hint">Done? Copy the state back into chat.</span>
+  <button class="btn" onclick="window.print()">Print / PDF</button>
+  <button class="btn primary" onclick="copyArtifactState(this)">Copy state as JSON</button>
+</div>
+
+<script>
+  // Default state — overwrite from your interactive widgets.
+  window.__artifactState = window.__artifactState || { note: "no editable state in this artifact" };
+
+  async function copyArtifactState(btn) {
+    const payload = JSON.stringify(window.__artifactState, null, 2);
+    try {
+      await navigator.clipboard.writeText(payload);
+      const prev = btn.textContent;
+      btn.textContent = "Copied";
+      setTimeout(() => (btn.textContent = prev), 1200);
+    } catch (e) {
+      const ta = document.createElement("textarea");
+      ta.value = payload; document.body.appendChild(ta); ta.select();
+      document.execCommand("copy"); ta.remove();
+      btn.textContent = "Copied (fallback)";
+    }
+  }
+</script>
+</body>
+</html>

@@ -75,7 +75,7 @@
     {
       "name": "visualize",
       "path": "./skills/visualize",
-      "description": "Produce rendered Mermaid diagrams and self-contained HTML visuals when the answer should be a diagram, not prose."
+      "description": "Build single-file, low-commitment interactive HTML as scaffolding for the conversation — comparison grids, plans, dashboards, draggable kanbans, decision matrices, annotated architectures — when the answer wants to be a page you can scroll, click, and share. Mermaid, SVG, and charts are primitives inside. Every editable artifact ends with a 'Copy state as JSON' button so the work flows back into chat."
     },
     {
       "name": "gh-org-context",
