@@ -1,7 +1,7 @@
 {
   "$schema": "https://claude.ai/schema/marketplace.json",
   "name": "victorhahn-skills",
-  "description": "Victor Hahn's personal Claude Code skills and plugins — each installable individually.",
+  "description": "Victor Hahn's personal Claude Code skills and plugins \u2014 each installable individually.",
   "owner": {
     "name": "Victor Hahn",
     "email": "vhahnwebdev@gmail.com"
@@ -10,7 +10,7 @@
     {
       "name": "aws-solutions-architect",
       "path": "./skills/aws-solutions-architect",
-      "description": "Expert AWS solutions architect — service selection, architecture patterns, cost optimization, and Terraform AWS provider implementation. Use for any AWS question, infrastructure design, or terraform-aws module work."
+      "description": "Expert AWS solutions architect \u2014 service selection, architecture patterns, cost optimization, and Terraform AWS provider implementation. Use for any AWS question, infrastructure design, or terraform-aws module work."
     },
     {
       "name": "brainstorming",
@@ -25,7 +25,7 @@
     {
       "name": "codebase-improvement-audit",
       "path": "./skills/codebase-improvement-audit",
-      "description": "Audit a codebase for real improvement opportunities — security, compliance, modernization, dead code, test gaps, dep drift — and produce a prioritized, regression-safe iteration plan."
+      "description": "Audit a codebase for real improvement opportunities \u2014 security, compliance, modernization, dead code, test gaps, dep drift \u2014 and produce a prioritized, regression-safe iteration plan."
     },
     {
       "name": "contract-first-backend",
@@ -35,42 +35,42 @@
     {
       "name": "kubernetes-specialist",
       "path": "./skills/kubernetes-specialist",
-      "description": "Deploy and manage Kubernetes workloads — manifests, RBAC, NetworkPolicies, Helm, debugging, right-sizing, and GitOps."
+      "description": "Deploy and manage Kubernetes workloads \u2014 manifests, RBAC, NetworkPolicies, Helm, debugging, right-sizing, and GitOps."
     },
     {
       "name": "repo-synthesize",
       "path": "./skills/repo-synthesize",
-      "description": "Deep-read one or more repos and produce structured Markdown docs covering both structure and capabilities. Runs a Recon → Delta Plan → Write workflow with an approval gate."
+      "description": "Deep-read one or more repos and produce structured Markdown docs covering both structure and capabilities. Runs a Recon \u2192 Delta Plan \u2192 Write workflow with an approval gate."
     },
     {
       "name": "skill-use-audit",
       "path": "./skills/skill-use-audit",
-      "description": "Audit how well an installed skill performed in the current Claude Code session — reads the live transcript, finds every invocation, evaluates effectiveness, and proposes diff-style improvements to SKILL.md."
+      "description": "Audit how well an installed skill performed in the current Claude Code session \u2014 reads the live transcript, finds every invocation, evaluates effectiveness, and proposes diff-style improvements to SKILL.md."
     },
     {
       "name": "subagent-architect",
       "path": "./skills/subagent-architect",
-      "description": "Design Claude Code subagents and multi-agent workflows — when a subagent is the right tool, what shape it should take, and how it fits the rest of the workflow."
+      "description": "Design Claude Code subagents and multi-agent workflows \u2014 when a subagent is the right tool, what shape it should take, and how it fits the rest of the workflow."
     },
     {
       "name": "test-coverage-quality-audit",
       "path": "./skills/test-coverage-quality-audit",
-      "description": "Audit a codebase for test coverage quality — tautological assertions, snapshot abuse, over-mocking, and framework anti-patterns in JS/TS and Go."
+      "description": "Audit a codebase for test coverage quality \u2014 tautological assertions, snapshot abuse, over-mocking, and framework anti-patterns in JS/TS and Go."
     },
     {
       "name": "tui-creator",
       "path": "./skills/tui-creator",
-      "description": "Design and implement interactive terminal UIs — layout, color, focus, keybindings, accessibility, and real-world precedent. Framework-agnostic plus Ink 7 / React 19 recipes."
+      "description": "Design and implement interactive terminal UIs \u2014 layout, color, focus, keybindings, accessibility, and real-world precedent. Framework-agnostic plus Ink 7 / React 19 recipes."
     },
     {
       "name": "typescript-expert",
       "path": "./skills/typescript-expert",
-      "description": "TypeScript and JavaScript expert — type-level programming, performance, monorepos, migrations, and modern tooling."
+      "description": "TypeScript and JavaScript expert \u2014 type-level programming, performance, monorepos, migrations, and modern tooling."
     },
     {
       "name": "unfuck",
       "path": "./skills/unfuck",
-      "description": "Make a codebase measurably better through small, surgical, regression-proof changes — coverage adds, dead-code removal, control-flow tightening, safe renames. Cardinal rule: no confidence, no change."
+      "description": "Make a codebase measurably better through small, surgical, regression-proof changes \u2014 coverage adds, dead-code removal, control-flow tightening, safe renames. Cardinal rule: no confidence, no change."
     },
     {
       "name": "visualize",
@@ -80,7 +80,12 @@
     {
       "name": "gh-org-context",
       "path": "./plugins/gh-org-context",
-      "description": "Distill a GitHub org (or curated repo list) into dense, structured context — tech stack, domains, runbooks, cross-repo connections — so downstream skills have an onboarded-engineer mental model. Bundles slash commands and the org-context skill."
+      "description": "Distill a GitHub org (or curated repo list) into dense, structured context \u2014 tech stack, domains, runbooks, cross-repo connections \u2014 so downstream skills have an onboarded-engineer mental model. Bundles slash commands and the org-context skill."
+    },
+    {
+      "name": "skillify",
+      "path": "./skills/skillify",
+      "description": "Turn a URL, article, transcript, paper, or pasted context into a fully functioning Claude Code skill. Ingests the source, distills key learnings, gates on user approval, then scaffolds and writes the final skill."
     }
   ]
 }

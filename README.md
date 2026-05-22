@@ -23,6 +23,7 @@ Then install any skill by name:
 /plugin install kubernetes-specialist@victorhahn-skills
 /plugin install repo-synthesize@victorhahn-skills
 /plugin install skill-use-audit@victorhahn-skills
+/plugin install skillify@victorhahn-skills
 /plugin install subagent-architect@victorhahn-skills
 /plugin install test-coverage-quality-audit@victorhahn-skills
 /plugin install tui-creator@victorhahn-skills
@@ -92,6 +93,7 @@ The installer backs up any existing skills directory, copies each skill into the
 | [`kubernetes-specialist`](skills/kubernetes-specialist/SKILL.md) | Deploy and manage Kubernetes workloads — manifests, RBAC, NetworkPolicies, Helm, debugging, right-sizing, GitOps. |
 | [`repo-synthesize`](skills/repo-synthesize/SKILL.md) | Deep-read one or more repos and produce structured Markdown docs covering both structure and capabilities. Runs a Recon → Delta Plan → Write workflow with an approval gate. |
 | [`skill-use-audit`](skills/skill-use-audit/SKILL.md) | Audit how well an installed skill performed in the current Claude Code session — reads the live transcript, finds every invocation, evaluates effectiveness, and proposes diff-style improvements to `SKILL.md`. |
+| [`skillify`](skills/skillify/SKILL.md) | Turn a URL, article, transcript, paper, or pasted context into a fully functioning Claude Code skill — ingests the source, distills key learnings, gates on user approval, then scaffolds and writes the final skill. |
 | [`subagent-architect`](skills/subagent-architect/SKILL.md) | Design Claude Code subagents and multi-agent workflows — when a subagent is the right tool, what shape it should take, and how it fits the rest of the workflow. |
 | [`test-coverage-quality-audit`](skills/test-coverage-quality-audit/SKILL.md) | Audit a codebase for test coverage *quality* — tautological assertions, snapshot abuse, over-mocking, and framework anti-patterns in JS/TS and Go. |
 | [`tui-creator`](skills/tui-creator/SKILL.md) | Design and implement interactive terminal UIs — layout, color, focus, keybindings, accessibility, and real-world precedent. Framework-agnostic plus Ink 7 / React 19 recipes. |

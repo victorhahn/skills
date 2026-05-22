@@ -1,0 +1,11 @@
+{
+  "name": "skillify",
+  "description": "Turn a URL, article, transcript, paper, or pasted context into a fully functioning Claude Code skill. Ingests the source, distills key learnings, gates on user approval, then scaffolds and writes the final skill.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "meta",
+  "keywords": ["skill", "meta", "ingest", "distillation", "skill-creator", "url-to-skill", "article-to-skill"]
+}
