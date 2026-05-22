@@ -1,0 +1,11 @@
+{
+  "name": "codebase-improvement-audit",
+  "description": "Audit a codebase for real improvement opportunities — security, compliance, modernization, dead code, test gaps, dep drift — and produce a prioritized, regression-safe iteration plan.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "audit",
+  "keywords": ["audit", "security", "compliance", "modernization", "tech-debt", "hipaa", "soc2"]
+}

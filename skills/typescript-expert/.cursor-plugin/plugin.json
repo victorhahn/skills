@@ -1,0 +1,11 @@
+{
+  "name": "typescript-expert",
+  "description": "TypeScript and JavaScript expert — type-level programming, performance, monorepos, migrations, and modern tooling.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "language",
+  "keywords": ["typescript", "javascript", "types", "monorepo", "migration"]
+}

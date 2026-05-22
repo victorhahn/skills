@@ -1,0 +1,11 @@
+{
+  "name": "subagent-architect",
+  "description": "Design Claude Code subagents and multi-agent workflows — when a subagent is the right tool, what shape it should take, and how it fits the rest of the workflow.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "agents",
+  "keywords": ["claude-code", "subagents", "multi-agent", "orchestration"]
+}

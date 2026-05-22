@@ -1,0 +1,11 @@
+{
+  "name": "aws-solutions-architect",
+  "description": "Expert AWS solutions architect — service selection, architecture patterns, cost optimization, and Terraform AWS provider implementation. Use for any AWS question, infrastructure design, or terraform-aws module work.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "infrastructure",
+  "keywords": ["aws", "terraform", "architecture", "cost-optimization", "iam", "ecs", "lambda"]
+}

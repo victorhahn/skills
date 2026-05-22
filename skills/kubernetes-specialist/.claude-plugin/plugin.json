@@ -1,0 +1,11 @@
+{
+  "name": "kubernetes-specialist",
+  "description": "Deploy and manage Kubernetes workloads — manifests, RBAC, NetworkPolicies, Helm, debugging, right-sizing, and GitOps.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "infrastructure",
+  "keywords": ["kubernetes", "helm", "rbac", "gitops", "argocd", "networkpolicy"]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "tui-creator",
+  "description": "Design and implement interactive terminal UIs — layout, color, focus, keybindings, accessibility, and real-world precedent. Framework-agnostic plus Ink 7 / React 19 recipes.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "tooling",
+  "keywords": ["tui", "terminal-ui", "ink", "ratatui", "textual", "bubbletea"]
+}

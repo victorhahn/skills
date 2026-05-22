@@ -1,0 +1,11 @@
+{
+  "name": "brainstorming",
+  "description": "Turn vague ideas into approved designs through one-question-at-a-time dialogue before any code is written.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "workflow",
+  "keywords": ["brainstorming", "design", "requirements", "clarification"]
+}

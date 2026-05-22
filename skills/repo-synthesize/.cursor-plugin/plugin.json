@@ -1,0 +1,11 @@
+{
+  "name": "repo-synthesize",
+  "description": "Deep-read one or more repos and produce structured Markdown docs covering both structure and capabilities. Runs a Recon → Delta Plan → Write workflow with an approval gate.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "documentation",
+  "keywords": ["documentation", "synthesis", "codebase-understanding", "deepwiki"]
+}

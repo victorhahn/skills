@@ -1,0 +1,19 @@
+{
+  "$schema": "https://claude.ai/schema/plugin.json",
+  "name": "gh-org-context",
+  "version": "0.1.0",
+  "description": "Distill a GitHub org (or curated repo list) into dense, structured context — tech stack, domains, runbooks, and cross-repo connections — so downstream skills have an 'onboarded engineer' mental model to work from.",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "elementone@gmail.com"
+  },
+  "commands": [
+    { "name": "org-scan",    "path": "./commands/org-scan.md" },
+    { "name": "org-update",  "path": "./commands/org-update.md" },
+    { "name": "repos-scan",  "path": "./commands/repos-scan.md" },
+    { "name": "repos-update","path": "./commands/repos-update.md" }
+  ],
+  "skills": [
+    { "name": "org-context", "path": "./skills/org-context" }
+  ]
+}

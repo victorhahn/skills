@@ -1,0 +1,86 @@
+{
+  "$schema": "https://claude.ai/schema/marketplace.json",
+  "name": "victorhahn-skills",
+  "description": "Victor Hahn's personal Claude Code skills and plugins — each installable individually.",
+  "owner": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "aws-solutions-architect",
+      "path": "./skills/aws-solutions-architect",
+      "description": "Expert AWS solutions architect — service selection, architecture patterns, cost optimization, and Terraform AWS provider implementation. Use for any AWS question, infrastructure design, or terraform-aws module work."
+    },
+    {
+      "name": "brainstorming",
+      "path": "./skills/brainstorming",
+      "description": "Turn vague ideas into approved designs through one-question-at-a-time dialogue before any code is written."
+    },
+    {
+      "name": "cli-creator",
+      "path": "./skills/cli-creator",
+      "description": "Build durable, installable Node/TypeScript CLIs from API docs, OpenAPI specs, curl examples, or existing scripts. Produces tools with stable JSON output, clean auth, and composable commands."
+    },
+    {
+      "name": "codebase-improvement-audit",
+      "path": "./skills/codebase-improvement-audit",
+      "description": "Audit a codebase for real improvement opportunities — security, compliance, modernization, dead code, test gaps, dep drift — and produce a prioritized, regression-safe iteration plan."
+    },
+    {
+      "name": "contract-first-backend",
+      "path": "./skills/contract-first-backend",
+      "description": "Bootstrap and work with contract-first TypeScript/Express backends where openapi.yaml is the source of truth and all types, validation, and clients are generated."
+    },
+    {
+      "name": "kubernetes-specialist",
+      "path": "./skills/kubernetes-specialist",
+      "description": "Deploy and manage Kubernetes workloads — manifests, RBAC, NetworkPolicies, Helm, debugging, right-sizing, and GitOps."
+    },
+    {
+      "name": "repo-synthesize",
+      "path": "./skills/repo-synthesize",
+      "description": "Deep-read one or more repos and produce structured Markdown docs covering both structure and capabilities. Runs a Recon → Delta Plan → Write workflow with an approval gate."
+    },
+    {
+      "name": "skill-use-audit",
+      "path": "./skills/skill-use-audit",
+      "description": "Audit how well an installed skill performed in the current Claude Code session — reads the live transcript, finds every invocation, evaluates effectiveness, and proposes diff-style improvements to SKILL.md."
+    },
+    {
+      "name": "subagent-architect",
+      "path": "./skills/subagent-architect",
+      "description": "Design Claude Code subagents and multi-agent workflows — when a subagent is the right tool, what shape it should take, and how it fits the rest of the workflow."
+    },
+    {
+      "name": "test-coverage-quality-audit",
+      "path": "./skills/test-coverage-quality-audit",
+      "description": "Audit a codebase for test coverage quality — tautological assertions, snapshot abuse, over-mocking, and framework anti-patterns in JS/TS and Go."
+    },
+    {
+      "name": "tui-creator",
+      "path": "./skills/tui-creator",
+      "description": "Design and implement interactive terminal UIs — layout, color, focus, keybindings, accessibility, and real-world precedent. Framework-agnostic plus Ink 7 / React 19 recipes."
+    },
+    {
+      "name": "typescript-expert",
+      "path": "./skills/typescript-expert",
+      "description": "TypeScript and JavaScript expert — type-level programming, performance, monorepos, migrations, and modern tooling."
+    },
+    {
+      "name": "unfuck",
+      "path": "./skills/unfuck",
+      "description": "Make a codebase measurably better through small, surgical, regression-proof changes — coverage adds, dead-code removal, control-flow tightening, safe renames. Cardinal rule: no confidence, no change."
+    },
+    {
+      "name": "visualize",
+      "path": "./skills/visualize",
+      "description": "Produce rendered Mermaid diagrams and self-contained HTML visuals when the answer should be a diagram, not prose."
+    },
+    {
+      "name": "gh-org-context",
+      "path": "./plugins/gh-org-context",
+      "description": "Distill a GitHub org (or curated repo list) into dense, structured context — tech stack, domains, runbooks, cross-repo connections — so downstream skills have an onboarded-engineer mental model. Bundles slash commands and the org-context skill."
+    }
+  ]
+}

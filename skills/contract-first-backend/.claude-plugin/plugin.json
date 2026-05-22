@@ -1,0 +1,11 @@
+{
+  "name": "contract-first-backend",
+  "description": "Bootstrap and work with contract-first TypeScript/Express backends where openapi.yaml is the source of truth and all types, validation, and clients are generated.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "framework",
+  "keywords": ["typescript", "express", "openapi", "contract-first", "backend"]
+}

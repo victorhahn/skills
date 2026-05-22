@@ -1,0 +1,11 @@
+{
+  "name": "cli-creator",
+  "description": "Build durable, installable Node/TypeScript CLIs from API docs, OpenAPI specs, curl examples, or existing scripts. Produces tools with stable JSON output, clean auth, and composable commands.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "tooling",
+  "keywords": ["cli", "nodejs", "typescript", "openapi", "tooling"]
+}

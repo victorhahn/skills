@@ -1,0 +1,11 @@
+{
+  "name": "visualize",
+  "description": "Produce rendered Mermaid diagrams and self-contained HTML visuals when the answer should be a diagram, not prose.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "workflow",
+  "keywords": ["diagrams", "mermaid", "visualization", "architecture"]
+}

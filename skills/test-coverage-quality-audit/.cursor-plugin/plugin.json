@@ -1,0 +1,11 @@
+{
+  "name": "test-coverage-quality-audit",
+  "description": "Audit a codebase for test coverage quality — tautological assertions, snapshot abuse, over-mocking, and framework anti-patterns in JS/TS and Go.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "audit",
+  "keywords": ["testing", "test-quality", "jest", "vitest", "playwright", "go-testing"]
+}

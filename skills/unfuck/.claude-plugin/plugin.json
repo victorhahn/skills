@@ -1,0 +1,11 @@
+{
+  "name": "unfuck",
+  "description": "Make a codebase measurably better through small, surgical, regression-proof changes — coverage adds, dead-code removal, control-flow tightening, safe renames. Cardinal rule: no confidence, no change.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "refactoring",
+  "keywords": ["refactoring", "cleanup", "code-quality", "incremental", "safe-changes"]
+}

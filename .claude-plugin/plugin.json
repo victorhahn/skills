@@ -1,0 +1,20 @@
+{
+  "name": "victorhahn-skills",
+  "skills": [
+    "./skills/aws-solutions-architect",
+    "./skills/brainstorming",
+    "./skills/cli-creator",
+    "./skills/codebase-improvement-audit",
+    "./skills/contract-first-backend",
+    "./skills/kubernetes-specialist",
+    "./skills/repo-synthesize",
+    "./skills/skill-use-audit",
+    "./skills/subagent-architect",
+    "./skills/test-coverage-quality-audit",
+    "./skills/tui-creator",
+    "./skills/typescript-expert",
+    "./skills/unfuck",
+    "./skills/visualize",
+    "./plugins/gh-org-context/skills/org-context"
+  ]
+}

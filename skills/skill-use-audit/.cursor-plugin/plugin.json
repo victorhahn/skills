@@ -1,0 +1,11 @@
+{
+  "name": "skill-use-audit",
+  "description": "Audit how well an installed skill performed in the current Claude Code session — reads the live transcript, finds every invocation, evaluates effectiveness, and proposes diff-style improvements to SKILL.md.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "meta",
+  "keywords": ["skill-audit", "meta", "effectiveness", "session-analysis", "improvement"]
+}
