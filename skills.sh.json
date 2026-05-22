@@ -1,0 +1,44 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Build & Author",
+      "description": "Skills for building new things — CLIs, TUIs, backends, and subagents.",
+      "skills": [
+        "cli-creator",
+        "tui-creator",
+        "contract-first-backend",
+        "subagent-architect"
+      ]
+    },
+    {
+      "title": "Audit & Improve",
+      "description": "Skills for making existing codebases measurably better — coverage, cleanup, and quality audits.",
+      "skills": [
+        "codebase-improvement-audit",
+        "test-coverage-quality-audit",
+        "skill-use-audit",
+        "unfuck"
+      ]
+    },
+    {
+      "title": "Domain Experts",
+      "description": "Deep expertise in specific stacks and platforms.",
+      "skills": [
+        "typescript-expert",
+        "aws-solutions-architect",
+        "kubernetes-specialist"
+      ]
+    },
+    {
+      "title": "Research & Understand",
+      "description": "Skills for exploring problems, synthesizing repos, and visualizing ideas.",
+      "skills": [
+        "repo-synthesize",
+        "brainstorming",
+        "visualize"
+      ]
+    }
+  ]
+}
