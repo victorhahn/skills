@@ -6,21 +6,19 @@ description: >
   visual artifact", or "make this into a page". Output shapes: comparison
   grids, architecture diagrams, scrollable plan/spec pages, PR diffs with
   annotations, decision matrices, draggable kanbans, dashboards, tunable
-  knobs pages. Template at assets/template.html provides card/grid
-  primitives, CSS variables, and a sticky export bar with Print/PDF and
-  Copy State as JSON. Skip for text explanations, single mermaid blocks,
-  debug next-steps, or answers that fit in a few sentences.
+  knobs pages, mockups, wireframes, ERDs, flowcharts, slide decks,
+  timelines, mindmaps, interactive tables. Template at assets/template.html
+  provides card/grid primitives, CSS variables, dark/light toggle, and a
+  sticky export bar with Copy State as JSON. Skip for text
+  explanations, single mermaid blocks, debug next-steps, or answers that
+  fit in a few sentences.
 ---
 
 # Visualize
 
-## Why this skill exists
+The artifact is part of the conversation, not the deliverable. A page the user can open, scroll, click through, and screenshot closes the loop in a way another wall of bullets can't. Build to *think with* the user — if the artifact is wrong, the next prompt rewrites it.
 
-Markdown made sense when context was scarce and output had to be light. That era is over. A single self-contained HTML file is now the most useful thing the agent can produce in many situations — it's denser than markdown, more interactive than mermaid, more shareable than a Notion doc, and cheap to throw away.
-
-The deeper point: **the artifact is part of the conversation, not the deliverable.** A page the user can open, scroll, click through, and screenshot closes the loop with the agent in a way that another wall of bullets can't. Build artifacts to *think with the user*, not to hand off polished work. If the artifact is wrong, the next prompt rewrites it — that's the loop.
-
-This is why mermaid-as-final-output is usually the wrong move now. A diagram alone is a thin slice of one shape. A page can hold the diagram, the surrounding context, the comparison, the open questions, and an export button — all in one place, opened with one `open` command.
+For the deeper *why*, principles, and anti-patterns, see `references/philosophy.md`. Load it when in doubt about whether to build, what shape to pick, or whether the page is doing too much.
 
 ## When to skip
 
@@ -35,59 +33,91 @@ A bad artifact is worse than a clear paragraph. If you find yourself padding to 
 
 ## How to build one
 
-**Start from `assets/template.html`** (sibling to this file). It has:
+**Start from `assets/template.html`** (sibling to this file). The defaults are tuned for "elevated modern SaaS" — Linear / Vercel / Stripe-adjacent. It gives you:
 
-- Neutral palette and system font stack as CSS variables — restyle by changing variables, not by adding new ones.
-- `.card`, `.grid-2/3/4`, `.pill`, and table primitives that compose into most artifact shapes.
-- A sticky export bar with `Print/PDF` and `Copy state as JSON` buttons already wired to `window.__artifactState`.
-- Print styles that hide the export bar so PDF/screenshot output looks clean.
+- **Type:** Geist + Geist Mono via Google Fonts, tight tracking on display sizes, tabular numerals on data primitives.
+- **Palette:** cool-neutral zinc-family in both light and dark, considered indigo accent used sparingly. CSS variables for every color and dimension so restyling is one block of overrides.
+- **Theme:** toggle (top-right, lucide icon), `prefers-color-scheme` honored, FOUC-free.
+- **Primitives:**
+  - `.card` / `.card.elevated` / `.card.interactive` — flat hairline by default, optional shadow or hover-lift variant
+  - `.grid.grid-2/3/4` — responsive columns
+  - `.section-head` with `.label` eyebrow — Stripe/Vercel docs-style section heading
+  - `.pill` with `.good/.warn/.bad/.accent` — mono uppercase status pills with status dot
+  - `.stat` — large numeric display with delta indicator
+  - `.kbd` — keyboard hint
+  - `.btn` / `.btn.primary` / `.btn.ghost`
+  - `.divider`, styled `<details>` disclosures, hover-rowed tables
+- **Frosted, sticky export bar** with `Copy state as JSON` wired to `window.__artifactState`.
+- **a11y:** `:focus-visible` outlines, `aria-label`s on framework controls, `prefers-reduced-motion` respected.
 
-Copy the template, replace the title block and the content slot, and set `window.__artifactState` from any interactive widgets.
+Copy the template, replace the title block and content slot, set `window.__artifactState` from any interactive widgets. Restyle as needed (see Creative latitude below).
 
-**Where to save it.** Default to the **current working directory** with a meaningful filename: `./visualize-<topic-slug>.html` (kebab-case, e.g. `./visualize-auth-flow.html`). This matches the Anthropic-canonical pattern from the `codebase-visualizer` docs example — the artifact lives next to the work it's about, so the user can `git add` it if it turns out to matter, `.gitignore visualize-*.html` if they don't want it tracked, or just delete it. Don't write to `/tmp/` (files get GC'd and the user loses their work) or a global cache directory (divorces the artifact from its project context). If the file already exists, suffix with `-2`, `-3`, etc. — never overwrite silently. If the user explicitly asks for a different path ("save it in `docs/`", "put it in the repo at X"), respect it.
+### Visual system — keep these, flex everything else
 
-**Open it immediately** with `open ./visualize-<topic-slug>.html` (macOS) or `xdg-open` (Linux). Don't wait for the user to ask — the artifact is meant to land in their browser as part of your reply. That's the loop the article is about.
+- **Compose with the primitives.** New shape? Combine existing classes before inventing new ones. The primitives carry the family resemblance and the export/theme/print mechanics.
+- **Override CSS variables** to flex the surface (different accent, denser/airier, alt type, dark-default). Don't fight variables with overrides on every element.
+- **Hierarchy by type, not size alone.** H1 → H2 → H3, mono uppercase `.label` for eyebrows, body 14px, mono 11–13px for meta. Resist arbitrary font sizes.
+- **Tabular numerals for any aligned numeric column.** Already on for tables, pills, stats — extend it where you add data.
+- **Color encodes meaning.** `good/warn/bad/accent` are semantic. Don't repurpose them for vibe.
+- **Hairline > heavy.** 1px borders + minimal shadow is the elevation language. Reach for shadow only on hover / floating surfaces.
 
-If the artifact genuinely needs something the template doesn't cover (a charting library, mermaid, drag-and-drop), pull in a CDN script — single-file constraint allows external `<script src>`, just no split files of your own. Mermaid: `<pre class="mermaid">…</pre>` plus `https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js` and an init call.
+**Where to save it.** Default to the **current working directory** with a meaningful filename. Use the shape as a prefix when it's obvious: `./comparison-auth-options.html`, `./arch-payment-flow.html`, `./kanban-q2-roadmap.html`. Otherwise `./visualize-<topic-slug>.html` is fine. Kebab-case throughout. This matches the Anthropic-canonical pattern from the `codebase-visualizer` example — the artifact lives next to the work it's about, so the user can `git add` it if it matters, `.gitignore` it if not, or just delete it. Don't write to `/tmp/` (files get GC'd) or a global cache (divorces the artifact from its project). If the file already exists *and* the user didn't ask for a fresh one, **read and modify it in place** (see Input handling). Only suffix with `-2` when the user has explicitly asked for a new version alongside.
+
+**Open it immediately** with `open ./<filename>.html` (macOS) or `xdg-open` (Linux). Don't wait for the user to ask — the artifact lands in their browser as part of your reply. That's the loop.
+
+If the artifact genuinely needs something the template doesn't cover (a charting library, mermaid, drag-and-drop), pull in a CDN script — single-file constraint allows external `<script src>`, just no split files of your own. See `references/shapes.md` for the pinned CDN shortlist.
+
+## Input handling
+
+- **Source file path** ("visualize this `schema.prisma`", "show me what's in `api.go`"): read and analyze the source first, then build the artifact from what you found. Don't visualize the *file*; visualize the *thing the file describes*.
+- **Existing artifact path** ("update `visualize-auth-flow.html`", "tweak the kanban from earlier"): read the existing file and modify in place. Don't recreate from scratch — the user's edits and state live in it. Suffix with `-2` only when the user explicitly asks for a fresh start.
+- **Natural language only**: infer the shape from the conversation. If genuinely ambiguous between two very different shapes, ask one targeted question.
 
 ## Pick the artifact shape
 
-Match the conversation to one of these. Most real requests are a mix — compose freely.
+Match the conversation to a shape. Most real requests compose several — mix freely.
 
 | The user is trying to… | Artifact shape |
 |---|---|
 | Compare N approaches / options / designs | Grid of N panels, one column per option with a shared row of attributes |
-| Understand a system or flow | Annotated architecture — layered SVG with labeled arrows + callout bubbles for non-obvious decisions |
-| Read a plan or spec | Long-form single page: goals, mockups, data flow, code snippets, open questions, with anchor links or tabs |
-| Review a PR / diff | Rendered diff with inline margin annotations, severity color-coding, header summarizing what changed and why |
-| Decide between things | Decision matrix — rows are options, columns are criteria, cells colored, optional weighted score |
-| Explain a concept | Storyboard — numbered panels, one idea per panel, SVG illustrations between text |
-| Prioritize work | Draggable kanban (Now / Next / Later / Cut) — persist to `localStorage`, export to JSON |
-| Edit something interactively | Form-based editor with live preview side-by-side, validation hints |
-| Tune a system | Page with sliders / knobs that update an SVG, chart, or computed value live |
+| Understand a system or flow | Annotated architecture — layered SVG with labeled arrows + callouts |
+| Read a plan or spec | Long-form single page: goals, mockups, data flow, snippets, open questions |
+| Review a PR / diff | Rendered diff with margin annotations, severity color-coding |
+| Decide between things | Decision matrix — rows × criteria, colored cells, optional weighted score |
+| Explain a concept | Storyboard — numbered panels, one idea per panel, SVG between text |
+| Prioritize work | Draggable kanban (Now / Next / Later / Cut) — persist to `localStorage` |
+| Edit something interactively | Form-based editor with live preview side-by-side |
+| Tune a system | Sliders / knobs that update an SVG, chart, or computed value live |
 | Look at data | Dashboard — KPI tiles, chart per question, filter controls, sortable table |
-| Trace a sequence | Mermaid sequence diagram embedded in the page (not as the whole output) |
+| Trace a sequence | Mermaid sequence diagram embedded *in* a page (not as the whole output) |
+| Mock a UI | High-fidelity mockup with realistic data, device frame if it adds context |
+| Sketch a UI | Low-fidelity wireframe, sketch aesthetic, grayscale |
+| Model data | ERD with entities, attributes, PK/FK marks, cardinality labels |
+| Map a flow | Flowchart — start/decision/process node semantics, branch conditions on edges |
+| Present | Slide deck (Reveal.js), one section per slide, speaker notes optional |
+| Show change over time | Timeline (horizontal for projects, vertical for stories), Gantt for schedules |
+| Explore a hierarchy | Mindmap, radial from center, collapsible branches |
+| Browse rows | Interactive table — sortable headers, filter input, optional pagination |
 
-The grid-of-N panels is the article's signature move. When a request is even loosely about comparing, options, or "show me the differences," default to it. When you genuinely can't tell which shape fits, ask one targeted question rather than guessing — but usually the conversation tells you.
+The grid-of-N panels is the signature move. When a request is even loosely about comparing, options, or "show me the differences," default to it.
 
-## Philosophy
+For per-shape implementation hints (what makes a good ERD vs a good mockup vs a good dashboard), see `references/shapes.md`.
 
-A few principles to lean on instead of rote rules. The template encodes the defaults; these explain *why* and when to deviate.
+## Creative latitude
 
-- **Density beats decoration.** Markdown shies away from density because it can't lay things out. HTML can. Use grids, tabs, columns, sticky headers, and `<details>` disclosure to fit more on screen without losing scannability.
-- **Communicate, don't decorate.** Color encodes meaning (status, side, severity, category) — not vibe. The template's accent / good / warn / bad pills already do this; reach for them before inventing new colors.
-- **Interactivity earns its keep.** Add a slider only if moving it teaches something. Add drag-and-drop only if reordering is the point. A static page that loads fast beats a clever one that feels brittle.
-- **The export hatch is non-negotiable for editable state.** Any artifact where the user edits something (kanban, matrix, config, prompt) needs the `Copy state as JSON` button working — set `window.__artifactState` from your widgets and the template handles the rest. Without it, the work the user does in the artifact is trapped.
-- **Low-commitment is fine.** This is scaffolding, not a product. The file lives in the user's CWD — they own the keep/delete/commit decision. If the next prompt invalidates it, build a new one alongside.
+The template's palette is a *starter*, not a uniform. Match aesthetic to artifact.
 
-## Anti-patterns
+A debugging dashboard wants flat, data-dense neutrality. A pitch deck wants energy and contrast. A wireframe wants sketchiness. A security audit wants severity-coded restraint. A brainstorm page can be playful — different typeface, looser layout, color used expressively. Slides especially are the one shape where the neutral defaults are usually wrong: pick a typeface, pick a palette, commit to a look.
 
-- **ASCII diagrams.** If it deserves a picture, it deserves SVG or Mermaid inside HTML.
-- **Mermaid as the entire output for things that want layout.** A complex architecture as a single mermaid blob is unreadable. Lay it out in HTML and use mermaid only for an inset where a sequence is the right primitive.
-- **The 600-line scroll-of-doom.** If the page won't fit on a laptop screen after one expand, it's the wrong shape — switch to tabs, an index sidebar, or split into a grid.
-- **Pasting markdown into a `<div>`.** If you're not using HTML's layout capabilities, you should've just written markdown.
-- **Forgetting the export button.** Trapped state is wasted work.
-- **Reinventing the template's CSS.** Every divergent restyle makes future artifacts feel inconsistent. Change CSS variables, not the whole sheet, unless the request specifically asks for a custom look.
+Override CSS variables; pick a typeface that fits (one Google Font is fine, two max — heading + body); change spacing and rhythm if the content asks for it. Restyle the surface — just keep the *primitives* (`.card`, `.grid-N`, `.pill`, `.btn`, the export bar, the theme toggle) so artifacts feel like part of the same family and the export/print/dark-mode mechanics keep working.
+
+**Guardrails:**
+
+- Accessibility floor: keyboard-navigable, `aria-label` on icon-only controls, `:focus-visible` outlines, WCAG AA contrast on every text/background pair. Respect `prefers-reduced-motion`.
+- Density beats decoration.
+- Color encodes meaning.
+- Keep the primitives and the export hatch working.
+- Run through `references/rendering-checklist.md` before opening.
 
 ## Communication style
 
@@ -104,3 +134,10 @@ One sentence before the artifact — name the shape and why. Then build it, save
 > "I'll create an HTML visualization to help you compare these approaches. The page will show each approach with its tradeoffs and let you scan them side by side. Let me know if you'd like a different layout. Here it is: ..."
 
 After producing it, don't summarize what's on the page. If there's a meaningful simplification ("I omitted the retry path — happy to add it"), one sentence. Let the artifact do the work.
+
+## References
+
+- `references/philosophy.md` — the deeper *why*, principles, and anti-patterns. Load when in doubt about whether to build or what shape fits.
+- `references/shapes.md` — per-shape implementation hints (mockup vs wireframe, ERD specifics, kanban DnD, etc.) and the pinned CDN library shortlist.
+- `references/rendering-checklist.md` — correctness pass before opening. Smart quotes, SVG xmlns, ARIA, contrast, console-clean.
+- `assets/template.html` — the starting point. Don't reinvent its primitives; restyle them.

@@ -4,53 +4,238 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Artifact</title>
+<script>
+  // Set theme before paint. localStorage > prefers-color-scheme > light.
+  (function () {
+    try {
+      var saved = localStorage.getItem("artifact-theme");
+      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+    } catch (e) { document.documentElement.dataset.theme = "light"; }
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+  /* Defaults tuned for "elevated modern SaaS" — Linear / Vercel / Stripe-adjacent.
+     Override CSS variables per artifact; keep the primitives (.card / .grid /
+     .pill / .btn / .section-head / .stat / .export-bar / .theme-toggle) so
+     artifacts stay a family and the mechanics keep working. */
   :root {
-    --bg: #fafaf9;
+    /* Cool neutral palette */
+    --bg: #fafafa;
     --surface: #ffffff;
-    --ink: #1c1c1c;
-    --muted: #6b6b6b;
-    --line: #e6e6e3;
-    --accent: #2b5fff;
-    --good: #1f8a4c;
-    --warn: #b8860b;
-    --bad: #c0392b;
-    --radius: 10px;
-    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
-    --maxw: 1180px;
+    --surface-2: #f4f4f5;
+    --surface-3: #e4e4e7;
+    --ink: #09090b;
+    --ink-soft: #27272a;
+    --muted: #71717a;
+    --muted-2: #a1a1aa;
+    --line: #e4e4e7;
+    --line-strong: #d4d4d8;
+
+    /* Considered indigo — used sparingly: links, focus, accent labels */
+    --accent: #4f46e5;
+    --accent-soft: #6366f1;
+    --accent-tint: color-mix(in srgb, var(--accent) 10%, var(--surface));
+
+    /* Semantic */
+    --good: #059669;
+    --warn: #d97706;
+    --bad:  #dc2626;
+
+    /* Code */
+    --code-bg: #f4f4f5;
+    --code-ink: #18181b;
+    --code-border: #e4e4e7;
+
+    /* Elevation — hairline-first, shadows minimal */
+    --shadow-xs: 0 1px 0 rgba(9, 9, 11, 0.04);
+    --shadow-sm: 0 1px 2px rgba(9, 9, 11, 0.04), 0 1px 0 rgba(9, 9, 11, 0.03);
+    --shadow-md: 0 4px 12px rgba(9, 9, 11, 0.06), 0 1px 0 rgba(9, 9, 11, 0.04);
+    --shadow-lg: 0 12px 32px rgba(9, 9, 11, 0.08), 0 1px 0 rgba(9, 9, 11, 0.04);
+
+    /* Geometry */
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-md: 8px;
+    --maxw: 1120px;
+
+    /* Type */
+    --font-sans: "Geist", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+
+  :root[data-theme="dark"] {
+    --bg: #09090b;
+    --surface: #131316;
+    --surface-2: #1c1c20;
+    --surface-3: #27272a;
+    --ink: #fafafa;
+    --ink-soft: #d4d4d8;
+    --muted: #a1a1aa;
+    --muted-2: #71717a;
+    --line: #27272a;
+    --line-strong: #3f3f46;
+
+    --accent: #818cf8;
+    --accent-soft: #a5b4fc;
+    --accent-tint: color-mix(in srgb, var(--accent) 14%, var(--surface));
+
+    --good: #34d399;
+    --warn: #fbbf24;
+    --bad:  #f87171;
+
+    --code-bg: #0c0c0e;
+    --code-ink: #e4e4e7;
+    --code-border: #27272a;
+
+    --shadow-xs: 0 1px 0 rgba(0, 0, 0, 0.5);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  /* Reset */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
   body {
-    font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    padding: 32px 24px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.55;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    padding: 56px 32px 96px;
+    transition: background .25s ease, color .25s ease;
   }
+
+  /* Subtle atmospheric depth on dark mode — single corner glow */
+  :root[data-theme="dark"] body {
+    background-image:
+      radial-gradient(ellipse 80% 60% at 50% -20%, color-mix(in srgb, var(--accent) 8%, transparent) 0%, transparent 60%);
+    background-attachment: fixed;
+  }
+
   main { max-width: var(--maxw); margin: 0 auto; }
+
+  /* Typography scale */
+  h1, h2, h3, h4 {
+    font-family: var(--font-sans);
+    color: var(--ink);
+    margin: 0;
+  }
+  h1 {
+    font-size: 32px; line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: 20px; line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+  h3 {
+    font-size: 14px; line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+  p { margin: 8px 0; color: var(--ink-soft); }
+  p.subtle { color: var(--muted); }
+
+  /* Links — accent with animated underline thickness */
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size .15s ease;
+  }
+  a:hover { background-size: 100% 1.5px; }
+
+  /* Focus */
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Monospace */
+  code, pre, .mono { font-family: var(--font-mono); }
+  code:not(pre code) {
+    background: var(--surface-2);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    padding: 1px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 0.88em;
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border: 1px solid var(--code-border);
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  pre code { background: transparent; border: 0; padding: 0; font-size: inherit; }
+
+  /* Small mono labels — section eyebrows, table headers, pill-like meta */
+  .label, .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .eyebrow { color: var(--accent); margin-bottom: 12px; }
+
+  /* Header */
   header.artifact-header {
-    margin-bottom: 32px;
-    padding-bottom: 20px;
+    margin-bottom: 48px;
+    padding-bottom: 28px;
     border-bottom: 1px solid var(--line);
   }
-  h1 { font-size: 24px; margin: 0 0 6px; letter-spacing: -.01em; }
-  header.artifact-header .subtitle { color: var(--muted); font-size: 14px; }
-  h2 { font-size: 18px; margin: 32px 0 12px; letter-spacing: -.005em; }
-  h3 { font-size: 15px; margin: 18px 0 6px; }
-  p { margin: 8px 0; }
-  code, pre { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; }
-  pre {
-    background: #1c1c1c; color: #f3f3f3; padding: 14px 16px;
-    border-radius: var(--radius); overflow-x: auto;
+  header.artifact-header .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 64ch;
+    margin-top: 6px;
   }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
 
+  /* Section head — label above h2 (Stripe/Vercel docs style) */
+  .section-head { margin: 56px 0 20px; }
+  .section-head .label { display: block; margin-bottom: 6px; }
+  .section-head + p { color: var(--muted); margin-top: 0; }
+
+  /* Cards — flat with hairline border by default */
   .card {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 18px 20px;
-    box-shadow: var(--shadow);
+    border-radius: var(--radius-md);
+    padding: 20px 22px;
+    transition: border-color .15s ease, background .15s ease, transform .15s ease, box-shadow .15s ease;
   }
+  .card.elevated { box-shadow: var(--shadow-sm); }
+  .card.interactive { cursor: pointer; }
+  .card.interactive:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  /* Grid */
   .grid { display: grid; gap: 16px; }
   .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -62,68 +247,273 @@
     .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   }
 
+  /* Pills — mono, hairline, tracked, with status dot */
   .pill {
-    display: inline-block; padding: 2px 8px; border-radius: 999px;
-    font-size: 12px; font-weight: 500; background: #eef0f3; color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 7px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: var(--surface-2);
+    color: var(--muted);
+    border: 1px solid var(--line);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
-  .pill.good { background: #e8f5ee; color: var(--good); }
-  .pill.warn { background: #fbf3df; color: var(--warn); }
-  .pill.bad  { background: #fbe7e4; color: var(--bad); }
-
-  table { width: 100%; border-collapse: collapse; }
-  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { font-weight: 600; color: var(--muted); font-size: 13px; }
-
-  details > summary { cursor: pointer; font-weight: 500; }
-
-  .export-bar {
-    position: sticky; bottom: 0; left: 0; right: 0;
-    margin: 48px auto 0; max-width: var(--maxw);
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 12px 16px;
-    display: flex; gap: 8px; align-items: center; justify-content: flex-end;
-    box-shadow: var(--shadow);
+  .pill::before {
+    content: "";
+    width: 5px; height: 5px;
+    border-radius: 999px;
+    background: currentColor;
+    opacity: 0.7;
   }
-  .export-bar .hint { color: var(--muted); font-size: 13px; margin-right: auto; }
-  .btn {
-    appearance: none; border: 1px solid var(--line); background: var(--surface);
-    color: var(--ink); padding: 8px 14px; border-radius: 8px; font: inherit;
+  .pill.plain::before { display: none; }
+  .pill.good   { background: color-mix(in srgb, var(--good) 10%, var(--surface));   color: var(--good);   border-color: color-mix(in srgb, var(--good) 22%, var(--line)); }
+  .pill.warn   { background: color-mix(in srgb, var(--warn) 12%, var(--surface));   color: var(--warn);   border-color: color-mix(in srgb, var(--warn) 26%, var(--line)); }
+  .pill.bad    { background: color-mix(in srgb, var(--bad) 10%, var(--surface));    color: var(--bad);    border-color: color-mix(in srgb, var(--bad) 22%, var(--line)); }
+  .pill.accent { background: var(--accent-tint);                                    color: var(--accent); border-color: color-mix(in srgb, var(--accent) 22%, var(--line)); }
+
+  /* Keyboard hint */
+  .kbd {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1;
+    padding: 3px 5px;
+    border: 1px solid var(--line-strong);
+    border-bottom-width: 2px;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--ink-soft);
+  }
+
+  /* Stat — big numeric display */
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat .value {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .label { color: var(--muted); }
+  .stat .delta { font-size: 12px; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .stat .delta.up   { color: var(--good); }
+  .stat .delta.down { color: var(--bad); }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom-color: var(--line-strong);
+  }
+  tbody tr { transition: background .12s ease; }
+  tbody tr:hover { background: var(--surface-2); }
+
+  /* Disclosure */
+  details {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    background: var(--surface);
+  }
+  details + details { margin-top: 8px; }
+  details > summary {
     cursor: pointer;
+    font-weight: 500;
+    list-style: none;
+    display: flex; align-items: center; gap: 10px;
   }
-  .btn:hover { border-color: #c9c9c4; }
-  .btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
-  .btn.primary:hover { background: #000; }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::before {
+    content: "›";
+    font-family: var(--font-mono);
+    color: var(--muted);
+    transition: transform .15s ease;
+    display: inline-block;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--line);
+    margin: 32px 0;
+    border: 0;
+  }
+
+  /* Theme toggle */
+  .theme-toggle {
+    position: fixed; top: 16px; right: 16px; z-index: 50;
+    background: var(--surface);
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    width: 34px; height: 34px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-xs);
+    transition: border-color .15s, background .15s, color .15s, transform .12s;
+  }
+  .theme-toggle:hover {
+    border-color: var(--line-strong);
+    color: var(--ink);
+    background: var(--surface-2);
+  }
+  .theme-toggle:active { transform: scale(0.94); }
+  .theme-toggle svg { width: 15px; height: 15px; }
+
+  /* Buttons */
+  .btn {
+    appearance: none;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+    padding: 7px 13px;
+    border-radius: var(--radius);
+    line-height: 1.4;
+    box-shadow: var(--shadow-xs);
+    transition: background .12s, border-color .12s, color .12s, transform .1s, box-shadow .12s;
+  }
+  .btn:hover { background: var(--surface-2); border-color: var(--muted-2); }
+  .btn:active { transform: translateY(1px); box-shadow: none; }
+  .btn.primary {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .btn.primary:hover { background: var(--ink-soft); border-color: var(--ink-soft); }
+  .btn.ghost {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    color: var(--ink-soft);
+  }
+  .btn.ghost:hover { background: var(--surface-2); color: var(--ink); }
+
+  /* Export bar — sticky, frosted */
+  .export-bar {
+    position: sticky;
+    bottom: 16px;
+    margin: 64px auto 0;
+    max-width: var(--maxw);
+    background: color-mix(in srgb, var(--surface) 80%, transparent);
+    backdrop-filter: saturate(140%) blur(16px);
+    -webkit-backdrop-filter: saturate(140%) blur(16px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
+    display: flex; gap: 10px; align-items: center; justify-content: flex-end;
+    box-shadow: var(--shadow-lg);
+  }
+  .export-bar .hint {
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    margin-right: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
 
   @media print {
-    body { padding: 0; background: #fff; }
-    .export-bar { display: none; }
+    :root { --bg: #ffffff; --surface: #ffffff; --ink: #09090b; --line: #d4d4d8; }
+    body { padding: 0; background-image: none; }
+    .export-bar, .theme-toggle { display: none; }
     .card { box-shadow: none; break-inside: avoid; }
   }
 </style>
 </head>
 <body>
+<!-- Icon symbols (define once, use anywhere) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4"/>
+    <path d="M12 2v2"/>
+    <path d="M12 20v2"/>
+    <path d="m4.93 4.93 1.41 1.41"/>
+    <path d="m17.66 17.66 1.41 1.41"/>
+    <path d="M2 12h2"/>
+    <path d="M20 12h2"/>
+    <path d="m6.34 17.66-1.41 1.41"/>
+    <path d="m19.07 4.93-1.41 1.41"/>
+  </symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+  </symbol>
+</svg>
+
+<button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-role="theme-toggle">
+  <svg data-role="theme-icon" aria-hidden="true"><use href="#i-moon"/></svg>
+</button>
+
 <main>
   <header class="artifact-header">
+    <div class="eyebrow">Artifact</div>
     <h1>Replace this title</h1>
-    <div class="subtitle">One-line framing of what this artifact is for.</div>
+    <p class="subtitle">One-line framing of what this artifact is for. Specific is better than evocative — what the page is, why it exists, what to do with it.</p>
   </header>
 
-  <!-- Content slot. Drop in whatever shape the conversation needs:
-       grid-of-N comparison, plan sections, decision matrix, kanban, etc.
-       Keep the .card / .grid / .pill primitives consistent across artifacts. -->
+  <!--
+    Content slot. Compose with primitives:
+      .section-head + .label    — section heading with mono uppercase eyebrow
+      .card / .card.elevated / .card.interactive
+      .grid.grid-2/3/4          — responsive columns
+      .pill / .pill.good/.warn/.bad/.accent — status labels (dot included)
+      .stat                     — big numeric display with delta
+      .kbd                      — keyboard hint
+      .divider                  — soft horizontal rule
+      <details>                 — disclosure groups
+
+    Type scale: h1 (page) → h2 (section) → h3 (card title) → body 14px / mono 11–13px.
+    Tabular numerals are on by default for tables, .pill, .stat — use them for any
+    aligned numeric column.
+
+    Override CSS variables to flex the surface (different accent, denser/airier, alt type) —
+    keep the primitives so artifacts stay a family and the mechanics work.
+  -->
+
+  <div class="section-head">
+    <span class="label">Overview</span>
+    <h2>Section title</h2>
+  </div>
+  <p>Section description sits under the heading and frames what's below.</p>
+
   <section>
     <p>Replace this with the actual content.</p>
   </section>
 </main>
 
-<!-- Export hatch. Required for any artifact where the user edits state
-     (kanbans, matrices, prompt editors, config tuners). Read state from
-     window.__artifactState (set it from your interactive code) and copy
-     it to the clipboard as JSON the user can paste back into chat. -->
-<div class="export-bar">
-  <span class="hint">Done? Copy the state back into chat.</span>
-  <button class="btn" onclick="window.print()">Print / PDF</button>
-  <button class="btn primary" onclick="copyArtifactState(this)">Copy state as JSON</button>
+<div class="export-bar" role="region" aria-label="Artifact export controls">
+  <span class="hint">Done — copy state back into chat</span>
+  <button class="btn primary" type="button" onclick="copyArtifactState(this)" aria-label="Copy artifact state to clipboard as JSON">Copy state as JSON</button>
 </div>
 
 <script>
@@ -144,6 +534,20 @@
       btn.textContent = "Copied (fallback)";
     }
   }
+
+  // Theme toggle — swap <use href> only (no innerHTML)
+  (function () {
+    const toggle = document.querySelector('[data-role="theme-toggle"]');
+    const useEl = document.querySelector('[data-role="theme-icon"] use');
+    const paint = (t) => { if (useEl) useEl.setAttribute("href", t === "dark" ? "#i-sun" : "#i-moon"); };
+    paint(document.documentElement.dataset.theme);
+    toggle?.addEventListener("click", () => {
+      const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      paint(next);
+      try { localStorage.setItem("artifact-theme", next); } catch (e) {}
+    });
+  })();
 </script>
 </body>
 </html>
