@@ -96,6 +96,11 @@
       "name": "ai-engineering-digest",
       "path": "./skills/ai-engineering-digest",
       "description": "Weekly briefing on AI engineering trends \u2014 synthesizes HN, GitHub Trending, and Reddit into a structured digest covering technical signal, notable projects, and professional/cultural discourse."
+    },
+    {
+      "name": "html-artifact",
+      "path": "./skills/html-artifact",
+      "description": "Produce single-file interactive HTML artifacts instead of markdown prose \u2014 autonomously, without being asked \u2014 using Tailwind + DaisyUI + Alpine.js."
     }
   ]
 }

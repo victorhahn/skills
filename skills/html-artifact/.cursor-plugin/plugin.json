@@ -1,0 +1,11 @@
+{
+  "name": "html-artifact",
+  "description": "Produce single-file interactive HTML artifacts instead of markdown prose — autonomously, without being asked — using Tailwind + DaisyUI + Alpine.js.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "output",
+  "keywords": ["html", "artifact", "single-file", "tailwind", "daisyui", "alpine", "interactive", "visualization"]
+}
