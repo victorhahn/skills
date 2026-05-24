@@ -1,7 +1,7 @@
 {
   "name": "visualize",
-  "description": "Build single-file, low-commitment interactive HTML as scaffolding for the conversation — comparison grids, plans, dashboards, draggable kanbans, decision matrices, annotated architectures — when the answer wants to be a page you can scroll, click, and share. Mermaid, SVG, and charts are primitives inside. Every editable artifact ends with a 'Copy state as JSON' button so the work flows back into chat.",
-  "version": "2.0.0",
+  "description": "Build single-file, self-contained HTML artifacts as scaffolding for the conversation — comparison grids, dashboards, plan pages, decision matrices, kanbans, slide decks, mockups, ERDs, timelines, reference docs — when the answer wants to be a page you can scroll, click, and share. No house template; aesthetic anchors (editorial, ops-terminal, pitch-display, whimsy-kitchen, brutalist-newsprint, etc.) guide taste calibration so artifacts don't all collapse into default-modern-SaaS. Mermaid, SVG, Chart.js, and Reveal.js are CDN primitives reached for only when the shape needs them.",
+  "version": "3.0.0",
   "author": {
     "name": "Victor Hahn",
     "email": "vhahnwebdev@gmail.com"
