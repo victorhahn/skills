@@ -17,6 +17,7 @@
     "./skills/visualize",
     "./plugins/gh-org-context/skills/org-context",
     "./skills/skillify",
-    "./skills/mockup"
+    "./skills/mockup",
+    "./skills/ai-engineering-digest"
   ]
 }

@@ -91,6 +91,11 @@
       "name": "mockup",
       "path": "./skills/mockup",
       "description": "Generate high-fidelity, contextually-rich single-file HTML mockups \u2014 one polished take, or a panel of distinct 'design team' takes on the same content for picking a direction."
+    },
+    {
+      "name": "ai-engineering-digest",
+      "path": "./skills/ai-engineering-digest",
+      "description": "Weekly briefing on AI engineering trends \u2014 synthesizes HN, GitHub Trending, and Reddit into a structured digest covering technical signal, notable projects, and professional/cultural discourse."
     }
   ]
 }

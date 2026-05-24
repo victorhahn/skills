@@ -15,6 +15,7 @@ Add the marketplace once:
 Then install any skill by name:
 
 ```shell
+/plugin install ai-engineering-digest@victorhahn-skills
 /plugin install aws-solutions-architect@victorhahn-skills
 /plugin install brainstorming@victorhahn-skills
 /plugin install cli-creator@victorhahn-skills
@@ -85,6 +86,7 @@ The installer backs up any existing skills directory, copies each skill into the
 
 | Skill | What it does |
 |---|---|
+| [`ai-engineering-digest`](skills/ai-engineering-digest/SKILL.md) | Weekly briefing on AI engineering trends — synthesizes HN, GitHub Trending, and Reddit into a digest covering technical signal, notable projects, and professional/cultural discourse. |
 | [`aws-solutions-architect`](skills/aws-solutions-architect/SKILL.md) | AWS service selection, architecture patterns, cost optimization, and Terraform AWS provider implementation. |
 | [`brainstorming`](skills/brainstorming/SKILL.md) | Turn vague ideas into approved designs through one-question-at-a-time dialogue before any code is written. |
 | [`cli-creator`](skills/cli-creator/SKILL.md) | Build durable, installable Node/TypeScript CLIs from API docs, OpenAPI specs, curl examples, or existing scripts. |

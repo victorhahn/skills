@@ -1,0 +1,11 @@
+{
+  "name": "ai-engineering-digest",
+  "description": "Weekly briefing on AI engineering trends — synthesizes HN, GitHub Trending, and Reddit into a structured digest covering technical signal, notable projects, and professional/cultural discourse.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "research",
+  "keywords": ["ai", "llm", "agents", "digest", "trends", "hacker-news", "github", "reddit", "weekly"]
+}
