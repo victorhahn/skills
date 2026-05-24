@@ -36,6 +36,8 @@ Correctness pass before opening the artifact. None of this is about taste — it
 - **No top-level `await` in classic `<script>` blocks.** Use `<script type="module">` if you need it.
 - **Defensive selectors.** `document.querySelector('.foo')?.addEventListener(...)` — don't crash the whole page on a missing node.
 - **Console clean.** Mentally open devtools before declaring done. A red console means the page is broken even if it looks fine.
+- **Use safe DOM APIs for dynamic content.** Setting raw HTML strings on elements at runtime can trip security hooks (Claude Code's harness blocks it) and is XSS-risky. Use `document.createElement` + `textContent`/`append` for any DOM-building done after page load. Static template strings in the initial HTML are fine.
+- **Canvas libraries can't read CSS variables.** Chart.js, D3, and raw `<canvas>` ignore CSS custom properties. Pass explicit `rgba()`/hex matched to the active theme; re-pass them on theme toggle if the chart should re-color.
 
 ## Final pass
 

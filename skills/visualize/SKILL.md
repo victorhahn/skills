@@ -1,17 +1,20 @@
 ---
 name: visualize
 description: >
-  Build a single-file, self-contained interactive HTML artifact and open
-  it in the browser. Invoke via /visualize, "visualize this", "generate a
-  visual artifact", or "make this into a page". Output shapes: comparison
-  grids, architecture diagrams, scrollable plan/spec pages, PR diffs with
-  annotations, decision matrices, draggable kanbans, dashboards, tunable
-  knobs pages, mockups, wireframes, ERDs, flowcharts, slide decks,
-  timelines, mindmaps, interactive tables. Template at assets/template.html
-  provides card/grid primitives, CSS variables, dark/light toggle, and a
-  sticky export bar with Copy State as JSON. Skip for text
-  explanations, single mermaid blocks, debug next-steps, or answers that
-  fit in a few sentences.
+  Produce a single-file, self-contained interactive HTML artifact instead of
+  markdown prose whenever HTML would communicate more clearly — and fire
+  proactively, without waiting to be asked. Also invoked explicitly via
+  /visualize, "visualize this", "make this a page", "give me an artifact".
+  Output shapes: comparison grids, dashboards, architecture diagrams, plan
+  pages, PR diffs, decision matrices, kanbans, tunable-knobs tools,
+  calculators, reference docs, FAQs, code walkthroughs, timelines, ERDs,
+  flowcharts, slide decks, mindmaps, interactive tables. Template at
+  assets/template.html ships card/grid primitives, CSS variables, dark/light
+  toggle, and a sticky Copy-state-as-JSON export bar. Heuristic: if the
+  answer would take >30 seconds to scan as markdown, an artifact almost
+  certainly serves it better. Skip for short factual answers (<3 sentences),
+  single code snippets, conversational back-and-forth, or when the user says
+  "keep it simple".
 ---
 
 # Visualize
@@ -20,6 +23,20 @@ The artifact is part of the conversation, not the deliverable. A page the user c
 
 For the deeper *why*, principles, and anti-patterns, see `references/philosophy.md`. Load it when in doubt about whether to build, what shape to pick, or whether the page is doing too much.
 
+## When to fire (proactively)
+
+Don't wait for `/visualize`. If any of these match the conversation, build the artifact:
+
+- Explaining a multi-step process or tutorial
+- Presenting structured data, comparisons, or metrics
+- Generating a report with multiple navigable sections
+- Creating a tool, calculator, or interactive widget
+- Showing code with annotations or syntax highlighting
+- Timelines, dashboards, FAQs, accordions, reference docs
+- Anything where a visual layout beats a wall of bullets
+
+The 30-second rule: if scanning the markdown version would take more than 30 seconds, build the artifact instead.
+
 ## When to skip
 
 Not everything wants to be a page. Skip when:
@@ -27,6 +44,7 @@ Not everything wants to be a page. Skip when:
 - The answer fits in 2–3 sentences.
 - It's a single command, a one-line fact, a yes/no, or a definition.
 - The user is mid-debug and wants the next move, not a deliverable.
+- The user explicitly says "just markdown" or "keep it simple".
 - You'd have to invent structure that isn't really there.
 
 A bad artifact is worse than a clear paragraph. If you find yourself padding to fill a page, just answer.
@@ -61,11 +79,28 @@ Copy the template, replace the title block and content slot, set `window.__artif
 - **Color encodes meaning.** `good/warn/bad/accent` are semantic. Don't repurpose them for vibe.
 - **Hairline > heavy.** 1px borders + minimal shadow is the elevation language. Reach for shadow only on hover / floating surfaces.
 
-**Where to save it.** Default to the **current working directory** with a meaningful filename. Use the shape as a prefix when it's obvious: `./comparison-auth-options.html`, `./arch-payment-flow.html`, `./kanban-q2-roadmap.html`. Otherwise `./visualize-<topic-slug>.html` is fine. Kebab-case throughout. This matches the Anthropic-canonical pattern from the `codebase-visualizer` example — the artifact lives next to the work it's about, so the user can `git add` it if it matters, `.gitignore` it if not, or just delete it. Don't write to `/tmp/` (files get GC'd) or a global cache (divorces the artifact from its project). If the file already exists *and* the user didn't ask for a fresh one, **read and modify it in place** (see Input handling). Only suffix with `-2` when the user has explicitly asked for a new version alongside.
+### Contextual libraries (CDN, pinned versions)
+
+Pull these in only when the shape needs them. Single-file constraint allows external `<script src>`, just no split files of your own.
+
+| Library | CDN | Use for |
+|---|---|---|
+| Chart.js 4 | `https://cdn.jsdelivr.net/npm/chart.js@4` | Standard charts: bar, line, pie, scatter |
+| D3 v7 | `https://d3js.org/d3.v7.min.js` | Custom viz, force graphs, heatmaps, bespoke shapes |
+| Mermaid 11 | `https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js` | Sequence, flow, ER, gantt, mindmap diagrams |
+| Reveal.js 5 | `https://cdn.jsdelivr.net/npm/reveal.js@5` | Slide decks |
+| highlight.js 11 | `https://cdn.jsdelivr.net/npm/highlight.js@11` | Code syntax highlighting |
+| Prism.js | `https://cdn.jsdelivr.net/npm/prismjs@1/prism.min.js` | Alternative code highlighting (plus per-language components) |
+| lucide | `https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js` | Icon system |
+| MathJax 3 | `https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js` | Math rendering |
+| Tailwind CDN | `https://cdn.tailwindcss.com` | Utility classes (use sparingly — primitives cover most cases) |
+| Google Fonts | `https://fonts.googleapis.com/css2?family=...` | Typeface — pick one that fits the artifact |
+
+For Chart.js / D3 / `<canvas>`: those libs don't read CSS custom properties. Use explicit `rgba()`/hex matched to the active theme.
+
+**Where to save it.** Default to the **current working directory** with a meaningful filename. Use the shape as a prefix when it's obvious: `./comparison-auth-options.html`, `./arch-payment-flow.html`, `./kanban-q2-roadmap.html`. Otherwise `./visualize-<topic-slug>.html` is fine. Kebab-case throughout. The artifact lives next to the work it's about — the user can `git add` it if it matters, `.gitignore` it if not, or just delete it. Don't write to `/tmp/` (files get GC'd) or a global cache (divorces the artifact from its project). If the file already exists *and* the user didn't ask for a fresh one, **read and modify it in place** (see Input handling). Only suffix with `-2` when the user has explicitly asked for a new version alongside.
 
 **Open it immediately.** Run `open ./<filename>.html` (macOS) or `xdg-open` (Linux) with `dangerouslyDisableSandbox: true` on the first try — `open` uses LaunchServices XPC which the Claude Code sandbox blocks (same fundamental Darwin limitation as `gh`). No `permissions.allow` entry fixes this; bypass the sandbox directly. Don't wait for the user to ask — the artifact lands in their browser as part of your reply. That's the loop.
-
-If the artifact genuinely needs something the template doesn't cover (a charting library, mermaid, drag-and-drop), pull in a CDN script — single-file constraint allows external `<script src>`, just no split files of your own. See `references/shapes.md` for the pinned CDN shortlist.
 
 ## Input handling
 
@@ -98,6 +133,9 @@ Match the conversation to a shape. Most real requests compose several — mix fr
 | Show change over time | Timeline (horizontal for projects, vertical for stories), Gantt for schedules |
 | Explore a hierarchy | Mindmap, radial from center, collapsible branches |
 | Browse rows | Interactive table — sortable headers, filter input, optional pagination |
+| Reference / cheat sheet | Sticky sidebar nav + sectioned long-form, anchor links |
+| Tutorial / multi-step | Progress indicator at top, step-by-step reveal, prev/next controls |
+| FAQ / accordion | Collapsible Q&A list, one open at a time |
 
 The grid-of-N panels is the signature move. When a request is even loosely about comparing, options, or "show me the differences," default to it.
 
@@ -107,7 +145,16 @@ For per-shape implementation hints (what makes a good ERD vs a good mockup vs a 
 
 The template's palette is a *starter*, not a uniform. Match aesthetic to artifact.
 
-A debugging dashboard wants flat, data-dense neutrality. A pitch deck wants energy and contrast. A wireframe wants sketchiness. A security audit wants severity-coded restraint. A brainstorm page can be playful — different typeface, looser layout, color used expressively. Slides especially are the one shape where the neutral defaults are usually wrong: pick a typeface, pick a palette, commit to a look.
+| Content tone | Suggested direction |
+|---|---|
+| Technical / data-dense / neutral | Default palette. Maybe denser spacing. |
+| Creative / expressive / pitch | Pick a typeface with personality, bolder accent, more whitespace |
+| Professional dark / ops dashboard | Dark-default theme, restrained accents, terminal-adjacent mono |
+| Friendly / consumer / onboarding | Warmer palette, rounder shapes, illustrative empty states |
+| Serious / audit / report | Restrained palette, severity-coded badges as the only loud color |
+| Editorial / longform | Serif body, generous line-height, wider gutters |
+
+A debugging dashboard wants flat, data-dense neutrality. A pitch deck wants energy and contrast. A wireframe wants sketchiness. A security audit wants severity-coded restraint. A brainstorm page can be playful. Slides especially are the one shape where the neutral defaults are usually wrong: pick a typeface, pick a palette, commit to a look.
 
 Override CSS variables; pick a typeface that fits (one Google Font is fine, two max — heading + body); change spacing and rhythm if the content asks for it. Restyle the surface — just keep the *primitives* (`.card`, `.grid-N`, `.pill`, `.btn`, the export bar, the theme toggle) so artifacts feel like part of the same family and the export/print/dark-mode mechanics keep working.
 
@@ -138,6 +185,6 @@ After producing it, don't summarize what's on the page. If there's a meaningful 
 ## References
 
 - `references/philosophy.md` — the deeper *why*, principles, and anti-patterns. Load when in doubt about whether to build or what shape fits.
-- `references/shapes.md` — per-shape implementation hints (mockup vs wireframe, ERD specifics, kanban DnD, etc.) and the pinned CDN library shortlist.
+- `references/shapes.md` — per-shape implementation hints (mockup vs wireframe, ERD specifics, kanban DnD, etc.).
 - `references/rendering-checklist.md` — correctness pass before opening. Smart quotes, SVG xmlns, ARIA, contrast, console-clean.
 - `assets/template.html` — the starting point. Don't reinvent its primitives; restyle them.
