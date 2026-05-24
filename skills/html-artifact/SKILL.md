@@ -288,6 +288,7 @@ For heavy libraries (D3, Three.js), show a loading skeleton while the script ini
 | DaisyUI styles overridden by Tailwind | Load DaisyUI CSS *before* the Tailwind `<script>` |
 | Alpine.js attributes parsed before script | Always use `defer` on the Alpine script tag |
 | Chart.js canvas sizing | Wrap `<canvas>` in a sized container; set `responsive: true` |
+| Canvas libraries ignore CSS variables | Chart.js, D3, and `<canvas>` cannot read CSS custom properties — use explicit `rgba()`/hex colors matched to the active DaisyUI theme instead of `hsl(var(--er))` |
 | DaisyUI collapse + Alpine.js conflict | Use `type="checkbox"` / `type="radio"` inputs, not `x-show` on collapse |
 | Fonts missing in offline/sandbox | Always include `font-sans` as a fallback in font stacks |
 | Hardcoded colors break dark mode | Use `bg-base-100` / `text-base-content` exclusively |
