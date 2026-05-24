@@ -75,7 +75,7 @@
     {
       "name": "visualize",
       "path": "./skills/visualize",
-      "description": "Build single-file, low-commitment interactive HTML as scaffolding for the conversation — comparison grids, plans, dashboards, draggable kanbans, decision matrices, annotated architectures — when the answer wants to be a page you can scroll, click, and share. Mermaid, SVG, and charts are primitives inside. Every editable artifact ends with a 'Copy state as JSON' button so the work flows back into chat."
+      "description": "Build single-file, low-commitment interactive HTML as scaffolding for the conversation \u2014 comparison grids, plans, dashboards, draggable kanbans, decision matrices, annotated architectures \u2014 when the answer wants to be a page you can scroll, click, and share. Mermaid, SVG, and charts are primitives inside. Every editable artifact ends with a 'Copy state as JSON' button so the work flows back into chat."
     },
     {
       "name": "gh-org-context",
@@ -86,6 +86,11 @@
       "name": "skillify",
       "path": "./skills/skillify",
       "description": "Turn a URL, article, transcript, paper, or pasted context into a fully functioning Claude Code skill. Ingests the source, distills key learnings, gates on user approval, then scaffolds and writes the final skill."
+    },
+    {
+      "name": "mockup",
+      "path": "./skills/mockup",
+      "description": "Generate high-fidelity, contextually-rich single-file HTML mockups \u2014 one polished take, or a panel of distinct 'design team' takes on the same content for picking a direction."
     }
   ]
 }

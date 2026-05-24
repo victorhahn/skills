@@ -1,0 +1,11 @@
+{
+  "name": "mockup",
+  "description": "Generate high-fidelity, contextually-rich single-file HTML mockups — one polished take, or a panel of distinct 'design team' takes on the same content for picking a direction.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Hahn",
+    "email": "vhahnwebdev@gmail.com"
+  },
+  "category": "design",
+  "keywords": ["mockup", "ui", "design", "wireframe", "prototype", "html", "ideation", "brainstorming", "variants"]
+}

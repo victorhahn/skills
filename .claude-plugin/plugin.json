@@ -16,6 +16,7 @@
     "./skills/unfuck",
     "./skills/visualize",
     "./plugins/gh-org-context/skills/org-context",
-    "./skills/skillify"
+    "./skills/skillify",
+    "./skills/mockup"
   ]
 }
