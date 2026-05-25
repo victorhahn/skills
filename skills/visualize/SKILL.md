@@ -19,7 +19,7 @@ description: >
 
 The artifact is part of the conversation, not the deliverable. A page the user can open, scroll, click through, and screenshot closes the loop in a way a wall of bullets can't. Build to *think with* them — if the artifact is wrong, the next prompt rewrites it.
 
-There's no template here on purpose. The most distinctive artifacts come from picking the right shape for the content and committing to an aesthetic that fits — not from filling in a house template. Trust your judgement; reach for `references/aesthetics.md` when the content has a clear tone and you want a concrete starting point.
+`assets/template.html` (sibling to this file) gives you a tuned starting point: Geist type, cool-neutral zinc palette, dark mode, and a set of card/grid/pill/stat primitives. Use it when you want a fast consistent base and plan to restyle from there. Skip it when committing to a fully custom aesthetic — the most distinctive artifacts come from picking a direction and owning it. Either way, reach for `references/aesthetics.md` when the content has a clear tone.
 
 ## When to fire (proactively)
 
@@ -48,10 +48,13 @@ A bad artifact is worse than a clear paragraph. If you find yourself padding to 
 
 ## Principles
 
-- **Density beats decoration.** Use HTML's layout — grids, columns, sticky elements, disclosure. If you're pasting markdown into a `<div>`, you should have written markdown.
+- **Compose, don't stack.** Use HTML's layout actively — asymmetric grids, sidebars, sticky elements, oversized anchor blocks, intentional whitespace. A vertical stack of full-width sections is markdown rendered in HTML; if you're pasting markdown into a `<div>`, you should have written markdown. The shape communicates before the text does.
 - **Match aesthetic to content.** A pitch deck wants energy. A security audit wants restraint. A wireframe wants intentional roughness. A whimsical personal page wants personality. The default-modern-SaaS look on every artifact is the AI-generated-page tell — actively avoid it. See `references/aesthetics.md` for curated anchors when taste calibration matters.
 - **Color encodes meaning** — status, severity, category, identity — not vibe.
+- **Atmosphere over flatness.** A hairline grid, soft noise overlay, paper texture, considered shadow, or gradient backdrop separates a designed page from rendered HTML. Tune to the aesthetic — ops-terminal wants none, editorial wants paper grain, pitch wants depth. Atmosphere is what makes the artifact feel made, not generated.
+- **Match implementation effort to aesthetic ambition.** A maximalist pitch deck needs the elaborate code: layered backgrounds, staggered reveals, custom cursors, considered motion. A restrained audit needs perfect spacing and nothing else. Half-committing — medium effort everywhere — is the AI tell.
 - **Interactivity earns its keep.** Add a slider only if moving it teaches something. Add drag-and-drop only if reordering is the point. A static page that loads fast beats a clever one that feels brittle.
+- **Interactive state (template only).** When using `assets/template.html` and the artifact has sliders, knobs, or editable decisions: set `window.__artifactState` from each change handler, then call `window.__enableCopyButton()` once after setup. This reveals a small clipboard icon in the top-right toolbar. Skip it for static artifacts — the button is hidden by default and a no-op until explicitly enabled.
 - **Accessibility floor**: keyboard-navigable, `aria-label` on icon-only controls, `:focus-visible` outlines, WCAG AA contrast, respect `prefers-reduced-motion`.
 - **Self-contained, single file.** External `<script src>` and `<link rel="stylesheet">` to pinned CDN versions are fine; no split local files of your own. Chart.js / D3 / `<canvas>` don't read CSS custom properties — pass explicit hex/rgba matched to the theme.
 
